@@ -1,17 +1,11 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>KIDOS SOCIAL</title>
 
 <style>
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
-
 :root{
     --bg:#0f0f0f;
     --panel:#181818;
@@ -19,20 +13,26 @@
     --panel3:#272727;
     --line:#303030;
     --text:#f1f1f1;
-    --muted:#aaaaaa;
-    --accent:#ff0033;
+    --muted:#aaa;
+    --accent:#ff1744;
     --blue:#3ea6ff;
+    --warn:#f0b429;
+    --danger:#e53935;
+    --ok:#46b96b;
 }
 
-body{
-    font-family:Arial, Helvetica, sans-serif;
+*{
+    box-sizing:border-box;
+}
+
+html,body{
+    margin:0;
     background:var(--bg);
     color:var(--text);
+    font-family:Arial,Helvetica,sans-serif;
 }
 
-button,
-input,
-textarea{
+button,input,textarea,select{
     font:inherit;
 }
 
@@ -41,126 +41,143 @@ button{
 }
 
 .hidden{
-    display:none !important;
+    display:none!important;
 }
 
 /* TOP BAR */
 
 .topbar{
-    height:56px;
     position:fixed;
     top:0;
     left:0;
     right:0;
-    background:#0f0f0f;
+    height:56px;
+    background:var(--bg);
     display:grid;
-    grid-template-columns:230px minmax(300px,700px) 1fr;
+    grid-template-columns:220px minmax(260px,700px) 1fr;
     align-items:center;
     padding:0 16px;
-    z-index:1000;
+    z-index:100;
+    border-bottom:1px solid #171717;
 }
 
-.top-left{
+.lefttop,
+.righttop{
     display:flex;
     align-items:center;
-    gap:16px;
+    gap:10px;
 }
 
-.menu-button{
-    border:0;
-    background:transparent;
-    color:white;
-    font-size:22px;
+.righttop{
+    justify-content:flex-end;
+}
+
+.menu{
     width:40px;
     height:40px;
+    border:0;
     border-radius:50%;
+    background:transparent;
+    color:white;
 }
 
-.menu-button:hover{
+.menu:hover{
     background:#272727;
 }
 
-.logo{
+.hamb{
+    display:grid;
+    gap:4px;
+    width:18px;
+    margin:auto;
+}
+
+.hamb i{
+    display:block;
+    height:2px;
+    background:white;
+    border-radius:2px;
+}
+
+.brand{
     display:flex;
     align-items:center;
     gap:8px;
     font-size:20px;
-    font-weight:700;
+    font-weight:800;
+    white-space:nowrap;
 }
 
-.logo-box{
+.playmark{
     width:31px;
     height:22px;
-    border-radius:6px;
+    border-radius:7px;
     background:var(--accent);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:12px;
+    position:relative;
 }
 
-.search-area{
+.playmark:after{
+    content:"";
+    position:absolute;
+    left:12px;
+    top:6px;
+    border-left:9px solid white;
+    border-top:5px solid transparent;
+    border-bottom:5px solid transparent;
+}
+
+.search{
     display:flex;
     justify-content:center;
 }
 
-.search-area input{
+.search input{
     width:100%;
     height:40px;
     border:1px solid #303030;
     background:#121212;
     color:white;
     border-radius:22px 0 0 22px;
-    padding:0 17px;
+    padding:0 16px;
     outline:none;
 }
 
-.search-area input:focus{
+.search input:focus{
     border-color:#1c62b9;
 }
 
-.search-area button{
-    width:65px;
-    background:#222;
-    color:white;
+.search button{
+    width:70px;
     border:1px solid #303030;
     border-left:0;
     border-radius:0 22px 22px 0;
-}
-
-.top-right{
-    display:flex;
-    justify-content:flex-end;
-    align-items:center;
-    gap:10px;
-}
-
-.create-button{
-    background:#272727;
-    border:0;
+    background:#222;
     color:white;
-    padding:10px 16px;
-    border-radius:20px;
-    font-weight:600;
 }
 
-.signin-button{
-    border:1px solid #3ea6ff;
-    background:transparent;
-    color:#3ea6ff;
+.topbtn{
+    border:0;
+    background:#272727;
+    color:white;
+    border-radius:20px;
     padding:9px 15px;
-    border-radius:20px;
-    font-weight:600;
+    font-weight:700;
 }
 
-.profile-button{
+.signin{
+    border:1px solid var(--blue);
+    background:transparent;
+    color:var(--blue);
+}
+
+.avatar{
     width:34px;
     height:34px;
     border-radius:50%;
     border:0;
-    background:#325db8;
+    background:#315cb7;
     color:white;
-    font-weight:bold;
+    font-weight:800;
 }
 
 /* SIDEBAR */
@@ -170,14 +187,14 @@ button{
     top:56px;
     bottom:0;
     left:0;
-    width:230px;
-    background:#0f0f0f;
-    overflow-y:auto;
+    width:226px;
+    background:var(--bg);
     padding:12px;
-    z-index:900;
+    overflow:auto;
+    z-index:90;
 }
 
-.sidebar-button{
+.side{
     width:100%;
     height:42px;
     border:0;
@@ -186,39 +203,40 @@ button{
     color:white;
     display:flex;
     align-items:center;
-    gap:20px;
-    padding:0 14px;
+    gap:18px;
+    padding:0 13px;
     text-align:left;
 }
 
-.sidebar-button:hover,
-.sidebar-button.active{
+.side:hover,
+.side.active{
     background:#272727;
 }
 
-.sidebar-icon{
-    width:22px;
-    font-size:18px;
-    text-align:center;
+.sideicon{
+    width:28px;
+    color:#ddd;
+    font-weight:800;
+    font-size:12px;
 }
 
-.sidebar-line{
+.sep{
     height:1px;
     background:#303030;
     margin:12px 0;
 }
 
-.sidebar-title{
-    padding:8px 14px;
-    font-weight:bold;
-    font-size:15px;
+.sidetitle{
+    padding:8px 13px;
+    font-weight:800;
 }
 
 /* MAIN */
 
 .main{
-    margin-left:230px;
+    margin-left:226px;
     padding:76px 25px 50px;
+    min-height:100vh;
 }
 
 .page{
@@ -229,13 +247,11 @@ button{
     display:block;
 }
 
-/* CATEGORY CHIPS */
-
 .chips{
     display:flex;
     gap:10px;
-    overflow-x:auto;
-    padding-bottom:20px;
+    overflow:auto;
+    margin-bottom:20px;
 }
 
 .chip{
@@ -244,16 +260,22 @@ button{
     color:white;
     border-radius:8px;
     padding:8px 13px;
+    font-weight:700;
     white-space:nowrap;
-    font-weight:600;
 }
 
 .chip.active{
     background:white;
-    color:black;
+    color:#111;
 }
 
-/* VIDEO GRID */
+.sectiontitle{
+    font-size:22px;
+    font-weight:800;
+    margin:32px 0 18px;
+}
+
+/* VIDEOS */
 
 .video-grid{
     display:grid;
@@ -265,101 +287,90 @@ button{
     cursor:pointer;
 }
 
-.thumbnail{
-    width:100%;
+.thumb{
     aspect-ratio:16/9;
-    background:#252525;
     border-radius:12px;
     overflow:hidden;
+    background:#202020;
     position:relative;
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    display:grid;
+    place-items:center;
 }
 
-.thumbnail-design{
+.thumbart{
     width:100%;
     height:100%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:22px;
-    font-weight:bold;
-    background:
-        linear-gradient(135deg,#192c50,#111111);
+    display:grid;
+    place-items:center;
+    padding:20px;
+    text-align:center;
+    font-size:21px;
+    font-weight:800;
+    background:linear-gradient(135deg,#16396c,#111);
 }
 
-.thumbnail-design.red{
-    background:linear-gradient(135deg,#4b111b,#151515);
+.thumbart.red{
+    background:linear-gradient(135deg,#551520,#111);
 }
 
-.thumbnail-design.purple{
-    background:linear-gradient(135deg,#34205c,#101010);
+.thumbart.green{
+    background:linear-gradient(135deg,#16482f,#111);
 }
 
-.thumbnail-design.green{
-    background:linear-gradient(135deg,#144c36,#101010);
+.thumbart.purple{
+    background:linear-gradient(135deg,#38205c,#111);
+}
+
+.duration,
+.livepill{
+    position:absolute;
+    bottom:6px;
+    border-radius:4px;
+    padding:3px 6px;
+    font-size:12px;
+    font-weight:800;
 }
 
 .duration{
-    position:absolute;
     right:6px;
-    bottom:6px;
     background:rgba(0,0,0,.8);
-    color:white;
-    padding:3px 5px;
-    border-radius:4px;
-    font-size:12px;
 }
 
-.live-label{
-    position:absolute;
-    bottom:6px;
+.livepill{
     left:6px;
-    background:#d50928;
-    padding:4px 7px;
-    border-radius:4px;
-    font-size:11px;
-    font-weight:bold;
+    background:#d30d2f;
 }
 
-.video-info{
+.vmeta{
     display:grid;
     grid-template-columns:38px 1fr;
     gap:10px;
     margin-top:10px;
 }
 
-.channel-avatar{
+.chanava{
     width:36px;
     height:36px;
     border-radius:50%;
-    background:#3157aa;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-weight:bold;
+    background:#315cb7;
+    display:grid;
+    place-items:center;
+    font-weight:800;
 }
 
-.video-title{
-    font-weight:600;
+.vtitle{
+    font-weight:700;
     line-height:1.35;
     margin-bottom:5px;
 }
 
-.video-sub{
-    color:#aaa;
+.sub{
+    color:var(--muted);
     font-size:14px;
     line-height:1.4;
 }
 
 /* SHORTS */
-
-.section-title{
-    font-size:22px;
-    font-weight:bold;
-    margin:35px 0 18px;
-}
 
 .shorts-grid{
     display:grid;
@@ -367,76 +378,73 @@ button{
     gap:14px;
 }
 
-.short-thumb{
+.short-card{
+    cursor:pointer;
+}
+
+.shortthumb{
     aspect-ratio:9/16;
     border-radius:12px;
-    background:linear-gradient(180deg,#223b72,#111);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-weight:bold;
-    padding:20px;
+    background:linear-gradient(180deg,#223e74,#111);
+    display:grid;
+    place-items:center;
+    padding:18px;
     text-align:center;
+    font-weight:800;
 }
 
 /* CHANNEL */
 
-.channel-header{
+.channel-head{
     display:flex;
     align-items:center;
     gap:22px;
-    margin-bottom:25px;
+    margin-bottom:22px;
 }
 
-.channel-big-avatar{
-    width:110px;
-    height:110px;
+.bigava{
+    width:112px;
+    height:112px;
     border-radius:50%;
-    background:#3157aa;
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    background:#315cb7;
+    display:grid;
+    place-items:center;
     font-size:42px;
-    font-weight:bold;
+    font-weight:800;
 }
 
 .channel-name{
-    font-size:28px;
-    font-weight:bold;
+    font-size:29px;
+    font-weight:800;
 }
 
-.channel-stats{
+.stats{
     color:#aaa;
     margin-top:7px;
 }
 
-.channel-description{
-    color:#ccc;
-    margin-top:10px;
-}
-
-.channel-tabs{
+.tabs{
     display:flex;
-    gap:30px;
+    gap:28px;
     border-bottom:1px solid #333;
-    margin-bottom:25px;
+    margin-bottom:23px;
 }
 
-.channel-tab{
+.tab{
     padding:12px 0;
     color:#aaa;
-    font-weight:bold;
+    font-weight:800;
 }
 
-.channel-tab.active{
+.tab.active{
     color:white;
     border-bottom:2px solid white;
 }
 
-/* FORMS */
+/* PANELS */
 
 .panel{
-    max-width:900px;
+    max-width:960px;
     background:#181818;
     border:1px solid #303030;
     border-radius:15px;
@@ -470,52 +478,66 @@ button{
     resize:vertical;
 }
 
-.primary{
-    background:#3ea6ff;
-    color:#07131d;
+.primary,
+.secondary,
+.danger{
     border:0;
     border-radius:20px;
     padding:10px 17px;
-    font-weight:bold;
+    font-weight:800;
+}
+
+.primary{
+    background:var(--blue);
+    color:#07131d;
 }
 
 .secondary{
     background:#272727;
     color:white;
-    border:0;
-    border-radius:20px;
-    padding:10px 17px;
-    font-weight:bold;
 }
 
 .danger{
     background:#c91635;
     color:white;
-    border:0;
-    border-radius:20px;
-    padding:10px 17px;
-    font-weight:bold;
 }
 
 /* UPLOAD */
 
-.upload-zone{
+.uploadzone{
     border:2px dashed #444;
     border-radius:15px;
-    padding:45px;
+    padding:40px;
     text-align:center;
 }
 
-.upload-symbol{
+.uploadcircle{
     width:70px;
     height:70px;
     border-radius:50%;
     background:#272727;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    margin:0 auto 18px;
-    font-size:30px;
+    display:grid;
+    place-items:center;
+    margin:0 auto 16px;
+    font-weight:800;
+}
+
+.preview{
+    width:100%;
+    aspect-ratio:16/9;
+    background:black;
+    border-radius:12px;
+    overflow:hidden;
+    display:grid;
+    place-items:center;
+    color:#777;
+}
+
+.preview video,
+.player video{
+    width:100%;
+    height:100%;
+    object-fit:contain;
 }
 
 /* POSTS */
@@ -528,92 +550,11 @@ button{
     margin-bottom:14px;
 }
 
-.post-header{
+.posthead{
     display:flex;
-    align-items:center;
     gap:10px;
-    margin-bottom:12px;
-}
-
-/* SIGN IN AND PARENT GATE */
-
-.overlay{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.82);
-    display:flex;
     align-items:center;
-    justify-content:center;
-    z-index:3000;
-}
-
-.modal{
-    width:min(470px,92%);
-    background:white;
-    color:#202124;
-    border-radius:18px;
-    padding:30px;
-}
-
-.modal-logo{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    font-size:21px;
-    font-weight:bold;
-    margin-bottom:26px;
-}
-
-.modal h1{
-    font-size:25px;
     margin-bottom:12px;
-}
-
-.modal p{
-    color:#5f6368;
-    line-height:1.55;
-    margin-bottom:20px;
-}
-
-.modal-button{
-    width:100%;
-    padding:12px;
-    border-radius:22px;
-    font-weight:bold;
-    margin-top:9px;
-}
-
-.modal-button.primary-modal{
-    background:#1a73e8;
-    color:white;
-    border:0;
-}
-
-.modal-button.light{
-    background:white;
-    color:#1a73e8;
-    border:1px solid #dadce0;
-}
-
-.parent-notice{
-    background:#f5f7fb;
-    border-radius:12px;
-    padding:14px;
-    margin:18px 0;
-    color:#444;
-    line-height:1.45;
-}
-
-.account-form{
-    margin-top:20px;
-}
-
-.account-form input{
-    width:100%;
-    padding:12px;
-    border:1px solid #ccc;
-    border-radius:9px;
-    margin-bottom:10px;
 }
 
 /* LIVE */
@@ -624,100 +565,256 @@ button{
     gap:18px;
 }
 
-.live-preview{
-    width:100%;
-    aspect-ratio:16/9;
-    border-radius:12px;
-    background:black;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:#777;
-}
-
 .live-controls{
     display:flex;
-    gap:10px;
+    gap:9px;
     flex-wrap:wrap;
     margin-top:14px;
 }
 
-.chat-box{
+.chatbox{
+    height:510px;
     background:#181818;
     border:1px solid #333;
     border-radius:12px;
-    overflow:hidden;
-    height:510px;
     display:flex;
     flex-direction:column;
+    overflow:hidden;
 }
 
-.chat-title{
+.chattitle{
     padding:14px;
     border-bottom:1px solid #333;
-    font-weight:bold;
+    font-weight:800;
 }
 
-.chat-messages{
+.chatlog{
     flex:1;
+    overflow:auto;
     padding:12px;
-    overflow-y:auto;
 }
 
-.chat-message{
-    padding:9px;
+.msg{
+    padding:9px 10px;
     margin-bottom:7px;
     background:#242424;
     border-radius:8px;
 }
 
-.chat-warning{
-    background:#453912;
+.msg.warn{
+    background:#483c15;
 }
 
-.chat-ban{
+.msg.block{
     background:#45151d;
 }
 
-.chat-input{
+.chatinput{
     display:flex;
     gap:8px;
     padding:10px;
     border-top:1px solid #333;
 }
 
-.chat-input input{
+.chatinput input{
     flex:1;
     background:#111;
     border:1px solid #444;
     color:white;
-    padding:10px;
+    padding:10px 12px;
     border-radius:18px;
 }
 
-/* CREATE MODAL */
-
-.dark-modal{
-    background:#212121;
-    color:white;
-    width:400px;
+.notice{
+    background:#211b0a;
+    border-left:4px solid var(--warn);
+    padding:12px;
+    border-radius:8px;
+    color:#e2d7ac;
+    font-size:13px;
+    line-height:1.45;
 }
 
-.create-option{
+/* WATCH PAGE */
+
+.watch-layout{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) 360px;
+    gap:22px;
+}
+
+.player{
+    aspect-ratio:16/9;
+    background:black;
+    border-radius:12px;
+    overflow:hidden;
+    display:grid;
+    place-items:center;
+}
+
+.fakeplayer{
+    font-size:28px;
+    font-weight:800;
+    color:#ddd;
+    padding:30px;
+    text-align:center;
+}
+
+.watchtitle{
+    font-size:21px;
+    font-weight:800;
+    margin:12px 0 8px;
+}
+
+.watchrow{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.actions{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+}
+
+.smallbtn{
+    border:0;
+    background:#272727;
+    color:white;
+    border-radius:18px;
+    padding:9px 13px;
+}
+
+.comment{
+    padding:12px 0;
+    border-bottom:1px solid #262626;
+}
+
+/* MODALS */
+
+.overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.78);
+    z-index:500;
+    display:grid;
+    place-items:center;
+}
+
+.modal{
+    width:min(500px,92%);
+    background:white;
+    color:#202124;
+    border-radius:18px;
+    padding:28px;
+}
+
+.modal.dark{
+    background:#212121;
+    color:white;
+}
+
+.modal h2{
+    margin-top:0;
+}
+
+.modal p{
+    color:#5f6368;
+    line-height:1.55;
+}
+
+.modal.dark p{
+    color:#bbb;
+}
+
+.parentbox{
+    background:#f5f7fb;
+    border-radius:12px;
+    padding:14px;
+    margin:16px 0;
+    color:#444;
+    line-height:1.5;
+}
+
+.modal input{
     width:100%;
-    background:transparent;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:9px;
+    margin:6px 0 10px;
+}
+
+.modalbutton{
+    width:100%;
+    padding:12px;
+    border-radius:22px;
+    font-weight:800;
+    margin-top:9px;
+}
+
+.bluebutton{
+    background:#1a73e8;
     color:white;
     border:0;
-    padding:14px;
+}
+
+.lightbutton{
+    background:white;
+    color:#1a73e8;
+    border:1px solid #dadce0;
+}
+
+.createopt{
+    width:100%;
+    border:0;
+    background:transparent;
+    color:white;
     text-align:left;
+    padding:13px;
     border-radius:8px;
 }
 
-.create-option:hover{
+.createopt:hover{
     background:#303030;
 }
 
-/* RESPONSIVE */
+/* SAFETY */
+
+.safety-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:14px;
+}
+
+.safety-card{
+    background:#181818;
+    border:1px solid #303030;
+    border-radius:14px;
+    padding:16px;
+}
+
+.statusline{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    margin:8px 0;
+    color:#bbb;
+}
+
+.ok{
+    color:var(--ok);
+}
+
+.warntext{
+    color:var(--warn);
+}
+
+.bad{
+    color:#ff6b6b;
+}
 
 @media(max-width:1200px){
     .video-grid{
@@ -730,33 +827,80 @@ button{
 }
 
 @media(max-width:900px){
+
     .sidebar{
-        width:75px;
+        width:74px;
     }
 
-    .sidebar-text,
-    .sidebar-title,
-    .sidebar-line{
+    .side span:last-child,
+    .sidetitle,
+    .sep{
         display:none;
     }
 
     .main{
-        margin-left:75px;
+        margin-left:74px;
     }
 
     .topbar{
-        grid-template-columns:180px 1fr auto;
+        grid-template-columns:185px 1fr auto;
     }
 
     .video-grid{
         grid-template-columns:repeat(2,1fr);
     }
 
-    .live-layout{
+    .live-layout,
+    .watch-layout{
         grid-template-columns:1fr;
+    }
+
+    .safety-grid{
+        grid-template-columns:1fr 1fr;
     }
 }
 
+@media(max-width:620px){
+
+    .search{
+        display:none;
+    }
+
+    .topbar{
+        grid-template-columns:1fr auto;
+    }
+
+    .sidebar{
+        display:none;
+    }
+
+    .main{
+        margin-left:0;
+        padding-left:14px;
+        padding-right:14px;
+    }
+
+    .video-grid{
+        grid-template-columns:1fr;
+    }
+
+    .shorts-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .channel-head{
+        align-items:flex-start;
+    }
+
+    .bigava{
+        width:82px;
+        height:82px;
+    }
+
+    .safety-grid{
+        grid-template-columns:1fr;
+    }
+}
 </style>
 </head>
 
@@ -764,145 +908,180 @@ button{
 
 <header class="topbar">
 
-<div class="top-left">
-    <button class="menu-button" id="menuButton">☰</button>
+<div class="lefttop">
 
-    <div class="logo">
-        <div class="logo-box">▶</div>
-        KIDOS SOCIAL
-    </div>
+<button class="menu" id="menuBtn" aria-label="Menu">
+<span class="hamb">
+<i></i>
+<i></i>
+<i></i>
+</span>
+</button>
+
+<div class="brand">
+<div class="playmark"></div>
+KIDOS SOCIAL
 </div>
 
-<div class="search-area">
-    <input id="searchInput" placeholder="Search">
-    <button id="searchButton">Search</button>
 </div>
 
-<div class="top-right">
-    <button class="create-button" id="createButton">Create</button>
+<div class="search">
 
-    <button class="signin-button" id="signinButton">
-        Sign in
-    </button>
+<input id="searchBox" placeholder="Search">
 
-    <button class="profile-button hidden" id="profileButton">
-        K
-    </button>
+<button id="searchBtn">
+Search
+</button>
+
+</div>
+
+<div class="righttop">
+
+<button class="topbtn" id="createTop">
+Create
+</button>
+
+<button class="topbtn signin" id="signInTop">
+Sign in
+</button>
+
+<button class="avatar hidden" id="avatarTop">
+K
+</button>
+
 </div>
 
 </header>
 
 <aside class="sidebar" id="sidebar">
 
-<button class="sidebar-button active" data-page="home">
-    <span class="sidebar-icon">H</span>
-    <span class="sidebar-text">Home</span>
+<button class="side active" data-page="home">
+<span class="sideicon">H</span>
+<span>Home</span>
 </button>
 
-<button class="sidebar-button" data-page="shorts">
-    <span class="sidebar-icon">S</span>
-    <span class="sidebar-text">Shorts</span>
+<button class="side" data-page="shorts">
+<span class="sideicon">S</span>
+<span>Shorts</span>
 </button>
 
-<button class="sidebar-button" data-page="subscriptions">
-    <span class="sidebar-icon">SUB</span>
-    <span class="sidebar-text">Subscriptions</span>
+<button class="side" data-page="following">
+<span class="sideicon">F</span>
+<span>Following</span>
 </button>
 
-<div class="sidebar-line"></div>
+<div class="sep"></div>
 
-<div class="sidebar-title">You</div>
+<div class="sidetitle">
+You
+</div>
 
-<button class="sidebar-button" data-page="channel">
-    <span class="sidebar-icon">C</span>
-    <span class="sidebar-text">Your channel</span>
+<button class="side" data-page="channel">
+<span class="sideicon">CH</span>
+<span>Your channel</span>
 </button>
 
-<button class="sidebar-button" data-page="history">
-    <span class="sidebar-icon">HIS</span>
-    <span class="sidebar-text">History</span>
+<button class="side" data-page="history">
+<span class="sideicon">HI</span>
+<span>History</span>
 </button>
 
-<div class="sidebar-line"></div>
-
-<div class="sidebar-title">Create</div>
-
-<button class="sidebar-button" data-page="upload">
-    <span class="sidebar-icon">UP</span>
-    <span class="sidebar-text">Upload video</span>
+<button class="side" data-page="liked">
+<span class="sideicon">LK</span>
+<span>Liked videos</span>
 </button>
 
-<button class="sidebar-button" data-page="uploadshort">
-    <span class="sidebar-icon">SH</span>
-    <span class="sidebar-text">Upload Short</span>
+<div class="sep"></div>
+
+<div class="sidetitle">
+Create
+</div>
+
+<button class="side" data-page="upload">
+<span class="sideicon">UP</span>
+<span>Upload video</span>
 </button>
 
-<button class="sidebar-button" data-page="live">
-    <span class="sidebar-icon">LIVE</span>
-    <span class="sidebar-text">Go live</span>
+<button class="side" data-page="uploadshort">
+<span class="sideicon">SH</span>
+<span>Upload Short</span>
 </button>
 
-<button class="sidebar-button" data-page="posts">
-    <span class="sidebar-icon">P</span>
-    <span class="sidebar-text">Posts</span>
+<button class="side" data-page="live">
+<span class="sideicon">LV</span>
+<span>Go live</span>
+</button>
+
+<button class="side" data-page="posts">
+<span class="sideicon">PO</span>
+<span>Posts</span>
+</button>
+
+<div class="sep"></div>
+
+<button class="side" data-page="safety">
+<span class="sideicon">SF</span>
+<span>Safety</span>
 </button>
 
 </aside>
 
 <main class="main">
 
-<!-- HOME -->
-
 <section class="page active" id="page-home">
 
 <div class="chips">
-    <button class="chip active">All</button>
-    <button class="chip">Gaming</button>
-    <button class="chip">Roblox</button>
-    <button class="chip">Live</button>
-    <button class="chip">Building</button>
-    <button class="chip">Coding</button>
-    <button class="chip">Challenges</button>
+
+<button class="chip active">All</button>
+<button class="chip">Roblox</button>
+<button class="chip">Gaming</button>
+<button class="chip">Live</button>
+<button class="chip">Building</button>
+<button class="chip">Coding</button>
+<button class="chip">Challenges</button>
+
 </div>
 
-<div class="video-grid" id="homeVideos"></div>
+<div class="video-grid" id="homeGrid"></div>
 
-<div class="section-title">Shorts</div>
+<div class="sectiontitle">
+Shorts
+</div>
 
 <div class="shorts-grid" id="homeShorts"></div>
 
 </section>
 
 
-<!-- SHORTS -->
-
 <section class="page" id="page-shorts">
 
-<div class="section-title">Shorts</div>
+<div class="sectiontitle">
+Shorts
+</div>
 
-<div class="shorts-grid" id="shortsVideos"></div>
-
-</section>
-
-
-<!-- SUBSCRIPTIONS -->
-
-<section class="page" id="page-subscriptions">
-
-<div class="section-title">Latest from subscriptions</div>
-
-<div class="video-grid" id="subscriptionVideos"></div>
+<div class="shorts-grid" id="shortsGrid"></div>
 
 </section>
 
 
-<!-- CHANNEL -->
+<section class="page" id="page-following">
+
+<div class="sectiontitle">
+Following
+</div>
+
+<div class="video-grid" id="followingGrid"></div>
+
+</section>
+
 
 <section class="page" id="page-channel">
 
-<div class="channel-header">
+<div class="channel-head">
 
-<div class="channel-big-avatar" id="channelAvatar">K</div>
+<div class="bigava" id="channelAvatar">
+K
+</div>
 
 <div>
 
@@ -910,88 +1089,126 @@ button{
 KidosPlayer
 </div>
 
-<div class="channel-stats" id="channelStats">
-@KidosPlayer · 0 subscribers · 0 videos
+<div class="stats" id="channelStats">
+@KidosPlayer · 0 followers · 0 videos
 </div>
 
-<div class="channel-description">
+<div class="stats" id="channelAbout">
 Gaming, creative videos, safe livestreams and community posts.
 </div>
 
-</div>
+<button class="secondary" id="customizeBtn" style="margin-top:12px">
+Customize channel
+</button>
 
 </div>
 
-<div class="channel-tabs">
+</div>
 
-<div class="channel-tab active">Home</div>
-<div class="channel-tab">Videos</div>
-<div class="channel-tab">Shorts</div>
-<div class="channel-tab">Live</div>
-<div class="channel-tab">Posts</div>
+<div class="tabs">
+
+<div class="tab active">Home</div>
+<div class="tab">Videos</div>
+<div class="tab">Shorts</div>
+<div class="tab">Live</div>
+<div class="tab">Posts</div>
 
 </div>
 
-<div class="section-title">Videos</div>
+<div class="sectiontitle">
+Videos
+</div>
 
 <div class="video-grid" id="channelVideos"></div>
 
-<div class="section-title">Posts</div>
+<div class="sectiontitle">
+Posts
+</div>
 
 <div id="channelPosts"></div>
 
 </section>
 
 
-<!-- UPLOAD -->
-
 <section class="page" id="page-upload">
 
-<div class="section-title">Upload video</div>
+<div class="sectiontitle">
+Upload video
+</div>
 
 <div class="panel">
 
-<div class="upload-zone">
+<div class="uploadzone">
 
-<div class="upload-symbol">UP</div>
+<div class="uploadcircle">
+UP
+</div>
 
-<h2>Select your video</h2>
+<h2>Select a video</h2>
 
-<p style="color:#aaa;margin-top:10px;">
+<div class="sub">
 Choose a video stored on this computer.
-</p>
+</div>
 
 <input
 type="file"
 id="videoFile"
 accept="video/*"
-style="margin-top:20px;"
+style="margin-top:18px"
 >
 
 </div>
 
-<div class="field" style="margin-top:22px;">
+<div
+class="preview hidden"
+id="videoPreviewBox"
+style="margin-top:18px"
+>
+
+<video
+id="videoPreview"
+controls
+></video>
+
+</div>
+
+<div class="field" style="margin-top:18px">
+
 <label>Title</label>
-<input id="videoTitle" placeholder="Add a title">
+
+<input
+id="videoTitle"
+placeholder="Add a title"
+>
+
 </div>
 
 <div class="field">
+
 <label>Description</label>
-<textarea id="videoDescription" placeholder="Tell viewers about your video"></textarea>
+
+<textarea
+id="videoDescription"
+placeholder="Tell viewers about your video"
+></textarea>
+
 </div>
 
 <div class="field">
+
 <label>Visibility</label>
 
 <select id="videoVisibility">
+
 <option>Public</option>
 <option>Unlisted</option>
 <option>Private</option>
+
 </select>
 
 </div>
 
-<button class="primary" id="publishVideoButton">
+<button class="primary" id="publishVideo">
 Publish
 </button>
 
@@ -1000,39 +1217,43 @@ Publish
 </section>
 
 
-<!-- SHORT UPLOAD -->
-
 <section class="page" id="page-uploadshort">
 
-<div class="section-title">Upload Short</div>
+<div class="sectiontitle">
+Upload Short
+</div>
 
 <div class="panel">
 
-<div class="upload-zone">
+<div class="uploadzone">
 
-<div class="upload-symbol">SH</div>
+<div class="uploadcircle">
+SH
+</div>
 
-<h2>Select a Short</h2>
-
-<p style="color:#aaa;margin-top:10px;">
-Vertical videos work best.
-</p>
+<h2>Select a vertical video</h2>
 
 <input
 type="file"
 id="shortFile"
 accept="video/*"
-style="margin-top:20px;"
+style="margin-top:18px"
 >
 
 </div>
 
-<div class="field" style="margin-top:22px;">
+<div class="field" style="margin-top:18px">
+
 <label>Title</label>
-<input id="shortTitle" placeholder="Short title">
+
+<input
+id="shortTitle"
+placeholder="Short title"
+>
+
 </div>
 
-<button class="primary" id="publishShortButton">
+<button class="primary" id="publishShort">
 Publish Short
 </button>
 
@@ -1041,11 +1262,43 @@ Publish Short
 </section>
 
 
-<!-- LIVE -->
+<section class="page" id="page-posts">
+
+<div class="sectiontitle">
+Community posts
+</div>
+
+<div class="panel">
+
+<div class="field">
+
+<label>Create a post</label>
+
+<textarea
+id="postText"
+placeholder="Share something with your community"
+></textarea>
+
+</div>
+
+<button class="primary" id="publishPost">
+Post
+</button>
+
+</div>
+
+<div style="height:18px"></div>
+
+<div id="postsFeed"></div>
+
+</section>
+
 
 <section class="page" id="page-live">
 
-<div class="section-title">Live Control Room</div>
+<div class="sectiontitle">
+Live Control Room
+</div>
 
 <div class="live-layout">
 
@@ -1054,77 +1307,101 @@ Publish Short
 <div class="panel">
 
 <div class="field">
+
 <label>Stream title</label>
 
 <input
 id="liveTitle"
 value="Playing Roblox Live"
 >
+
 </div>
 
 <div class="field">
 
-<label>Who can watch?</label>
+<label>Audience</label>
 
-<select>
+<select id="liveAudience">
+
 <option>Approved friends</option>
 <option>Followers</option>
 <option>Private test</option>
+
 </select>
 
 </div>
 
-<div class="live-preview" id="livePreview">
+<div class="preview">
+
+<video
+id="livePreview"
+autoplay
+muted
+playsinline
+></video>
+
+<div id="livePlaceholder">
 Preview
+</div>
+
 </div>
 
 <div class="live-controls">
 
-<button class="secondary">
+<button class="secondary" id="shareScreen">
 Share game or screen
 </button>
 
-<button class="secondary" id="micButton">
+<button class="secondary" id="micBtn">
 Mic Off
 </button>
 
-<button class="secondary" id="cameraButton">
+<button class="secondary" id="camBtn">
 Camera Off
 </button>
 
-<button class="primary" id="goLiveButton">
+<button class="primary" id="goLive">
 Go Live
 </button>
 
-<button class="danger hidden" id="endLiveButton">
+<button class="danger hidden" id="endLive">
 End Stream
 </button>
 
 </div>
 
+<div class="notice" style="margin-top:14px">
+
+Camera, microphone and screen sharing always require browser permission.
+
+This prototype does not broadcast to other people yet.
+
+</div>
+
 </div>
 
 </div>
 
-<div class="chat-box">
 
-<div class="chat-title">
+<div class="chatbox">
+
+<div class="chattitle">
 Live chat
 </div>
 
-<div class="chat-messages" id="chatMessages">
+<div class="chatlog" id="chatLog">
 
-<div class="chat-message">
+<div class="msg">
 Welcome to live chat.
 </div>
 
 </div>
 
-<div class="chat-input">
+<div class="chatinput">
 
 <input
 id="chatInput"
-placeholder="Chat..."
+placeholder="Chat"
 >
 
 <button class="primary" id="chatSend">
@@ -1140,74 +1417,308 @@ Send
 </section>
 
 
-<!-- POSTS -->
+<section class="page" id="page-history">
 
-<section class="page" id="page-posts">
+<div class="sectiontitle">
+Watch history
+</div>
 
-<div class="section-title">Posts</div>
+<div class="video-grid" id="historyGrid"></div>
+
+</section>
+
+
+<section class="page" id="page-liked">
+
+<div class="sectiontitle">
+Liked videos
+</div>
+
+<div class="video-grid" id="likedGrid"></div>
+
+</section>
+
+
+<section class="page" id="page-safety">
+
+<div class="sectiontitle">
+Safety Center
+</div>
+
+<div class="safety-grid">
+
+<div class="safety-card">
+
+<h3>Multilingual moderation</h3>
+
+<p class="sub">
+Checks chat, comments, posts, titles, descriptions and channel names.
+</p>
+
+<div class="statusline">
+<span>English</span>
+<span class="ok">On</span>
+</div>
+
+<div class="statusline">
+<span>Arabic</span>
+<span class="ok">On</span>
+</div>
+
+<div class="statusline">
+<span>Spanish, French, German</span>
+<span class="ok">On</span>
+</div>
+
+<div class="statusline">
+<span>Greek, Turkish, Russian</span>
+<span class="ok">On</span>
+</div>
+
+<div class="statusline">
+<span>More major languages</span>
+<span class="ok">On</span>
+</div>
+
+</div>
+
+
+<div class="safety-card">
+
+<h3>Account status</h3>
+
+<div class="statusline">
+<span>Mild warnings</span>
+<span id="warningStat">0</span>
+</div>
+
+<div class="statusline">
+<span>Strong strikes</span>
+<span id="strongStat">0</span>
+</div>
+
+<div class="statusline">
+<span>Severe strikes</span>
+<span id="severeStat">0</span>
+</div>
+
+<div class="statusline">
+<span>Restriction</span>
+<span id="restrictionStat" class="ok">
+None
+</span>
+</div>
+
+</div>
+
+
+<div class="safety-card">
+
+<h3>How it works</h3>
+
+<p class="sub">
+
+Mild insults such as "stupid" or "dumb" create a warning.
+
+Repeated mild abuse can cause a short timeout.
+
+Strong profanity is blocked and can cause a 1-day restriction.
+
+Severe abuse or threats can cause a 30-day restriction.
+
+Repeated severe abuse can lock the account for review.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<section class="page" id="page-watch">
+
+<div class="watch-layout">
+
+<div>
+
+<div class="player">
+
+<video
+id="watchVideo"
+class="hidden"
+controls
+></video>
+
+<div class="fakeplayer" id="fakePlayer">
+Video
+</div>
+
+</div>
+
+<div class="watchtitle" id="watchTitle">
+Video title
+</div>
+
+<div class="watchrow">
+
+<div style="display:flex;align-items:center;gap:10px">
+
+<div class="chanava" id="watchAvatar">
+K
+</div>
+
+<div>
+
+<b id="watchChannel">
+Channel
+</b>
+
+<div class="sub" id="watchFollowers">
+0 followers
+</div>
+
+</div>
+
+<button class="secondary" id="followBtn">
+Follow
+</button>
+
+</div>
+
+<div class="actions">
+
+<button class="smallbtn" id="likeBtn">
+Like
+</button>
+
+<button class="smallbtn">
+Share
+</button>
+
+<button class="smallbtn">
+More
+</button>
+
+</div>
+
+</div>
+
+<div class="post" style="margin-top:14px">
+
+<b id="watchViews">
+0 views
+</b>
+
+<div id="watchDesc" style="margin-top:8px"></div>
+
+</div>
+
+<div class="sectiontitle" style="margin-top:22px">
+Comments
+</div>
+
+<div class="field">
+
+<input
+id="commentInput"
+placeholder="Add a comment"
+>
+
+</div>
+
+<button class="secondary" id="commentBtn">
+Comment
+</button>
+
+<div id="comments"></div>
+
+</div>
+
+<div>
+
+<div
+class="video-grid"
+style="grid-template-columns:1fr"
+id="recommended"
+></div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<section class="page" id="page-settings">
+
+<div class="sectiontitle">
+Customize channel
+</div>
 
 <div class="panel">
 
 <div class="field">
 
-<label>Create a post</label>
+<label>Channel name</label>
 
-<textarea
-id="postInput"
-placeholder="Share something with your community"
-></textarea>
+<input id="settingsName">
 
 </div>
 
-<button class="primary" id="postButton">
-Post
+<div class="field">
+
+<label>Handle</label>
+
+<input id="settingsHandle">
+
+</div>
+
+<div class="field">
+
+<label>About</label>
+
+<textarea id="settingsAbout"></textarea>
+
+</div>
+
+<button class="primary" id="saveSettings">
+Save
 </button>
 
 </div>
-
-<div style="height:20px;"></div>
-
-<div id="postsList"></div>
-
-</section>
-
-
-<!-- HISTORY -->
-
-<section class="page" id="page-history">
-
-<div class="section-title">Watch history</div>
-
-<div class="video-grid" id="historyVideos"></div>
 
 </section>
 
 </main>
 
 
-<!-- SIGN IN MODAL -->
+<!-- SIGN IN -->
 
 <div class="overlay hidden" id="signinOverlay">
 
 <div class="modal">
 
-<div class="modal-logo">
+<div class="brand" style="color:#202124">
 
-<div class="logo-box">▶</div>
+<div class="playmark"></div>
 
 KIDOS SOCIAL
 
 </div>
 
-<h1>Welcome to KIDOS SOCIAL</h1>
+<h2>
+Welcome to KIDOS SOCIAL
+</h2>
 
 <p>
 You can watch videos without an account.
 </p>
 
-<div class="parent-notice">
+<div class="parentbox">
 
-<strong>Want your own account?</strong>
+<b>Want your own account?</b>
 
 <br><br>
 
@@ -1215,59 +1726,74 @@ Ask your parent or guardian to help you create and manage your KIDOS SOCIAL acco
 
 </div>
 
-<button
-class="modal-button primary-modal"
-id="parentHelpButton"
->
+<button class="modalbutton bluebutton" id="parentHelp">
 My parent is helping me
 </button>
 
-<button
-class="modal-button light"
-id="continueWithoutAccount"
->
+<button class="modalbutton lightbutton" id="browseGuest">
 Continue without an account
 </button>
 
-<button
-class="modal-button light"
-id="closeSignin"
->
+<button class="modalbutton lightbutton" id="googleMock">
+Continue with Google
+</button>
+
+<button class="modalbutton lightbutton" id="closeSignin">
 Cancel
 </button>
 
-</div>
+<p style="font-size:12px;margin-top:15px">
+
+Real Google sign-in needs a hosted Google OAuth setup.
+
+This prototype does not access your Google account.
+
+</p>
 
 </div>
 
+</div>
 
-<!-- CREATE ACCOUNT -->
+
+<!-- ACCOUNT CREATION -->
 
 <div class="overlay hidden" id="accountOverlay">
 
 <div class="modal">
 
-<div class="modal-logo">
+<div class="brand" style="color:#202124">
 
-<div class="logo-box">▶</div>
+<div class="playmark"></div>
 
 KIDOS SOCIAL
 
 </div>
 
-<h1>Create your account</h1>
+<h2>
+Create your account
+</h2>
 
 <p>
 A parent or guardian should help with this step.
 </p>
 
-<div class="parent-notice">
+<div class="parentbox">
 
-Do not enter your school name, home address, phone number or other private information into your public username.
+Do not use a school name, home address, phone number, exact location or other private information in the public profile.
 
 </div>
 
-<div class="account-form">
+<label>
+
+<input
+type="checkbox"
+id="parentCheck"
+style="width:auto;margin-right:8px"
+>
+
+I am the parent or guardian helping with this account.
+
+</label>
 
 <input
 id="accountName"
@@ -1281,19 +1807,11 @@ placeholder="Handle, for example @KidosPlayer"
 maxlength="25"
 >
 
-</div>
-
-<button
-class="modal-button primary-modal"
-id="createAccountButton"
->
+<button class="modalbutton bluebutton" id="createAccount">
 Create account
 </button>
 
-<button
-class="modal-button light"
-id="cancelAccountButton"
->
+<button class="modalbutton lightbutton" id="cancelAccount">
 Cancel
 </button>
 
@@ -1306,27 +1824,29 @@ Cancel
 
 <div class="overlay hidden" id="createOverlay">
 
-<div class="modal dark-modal">
+<div class="modal dark">
 
-<h2 style="margin-bottom:15px;">Create</h2>
+<h2>
+Create
+</h2>
 
-<button class="create-option" data-create-page="upload">
+<button class="createopt" data-create="upload">
 Upload video
 </button>
 
-<button class="create-option" data-create-page="uploadshort">
+<button class="createopt" data-create="uploadshort">
 Upload Short
 </button>
 
-<button class="create-option" data-create-page="live">
+<button class="createopt" data-create="live">
 Go live
 </button>
 
-<button class="create-option" data-create-page="posts">
+<button class="createopt" data-create="posts">
 Create post
 </button>
 
-<button class="create-option" id="closeCreate">
+<button class="createopt" id="closeCreate">
 Cancel
 </button>
 
@@ -1337,115 +1857,183 @@ Cancel
 
 <script>
 
-const $ = selector => document.querySelector(selector);
-const $$ = selector => [...document.querySelectorAll(selector)];
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
 
+const saveJSON = (key,value) =>
+localStorage.setItem(key,JSON.stringify(value));
 
-/* DATA */
+const loadJSON = (key,defaultValue) => {
 
-let account = JSON.parse(
-    localStorage.getItem("kidosAccount")
-    ||
-    JSON.stringify({
-        signedIn:false,
-        name:"KidosPlayer",
-        handle:"@KidosPlayer"
-    })
+try{
+
+const value =
+JSON.parse(localStorage.getItem(key));
+
+return value ?? defaultValue;
+
+}catch{
+
+return defaultValue;
+
+}
+
+};
+
+const esc = value =>
+
+String(value ?? "")
+.replace(
+/[&<>"']/g,
+character => ({
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;",
+"'":"&#39;"
+}[character])
 );
 
-let uploadedVideos =
-JSON.parse(localStorage.getItem("kidosVideos") || "[]");
 
-let uploadedShorts =
-JSON.parse(localStorage.getItem("kidosShorts") || "[]");
+/* ACCOUNT */
+
+let account = loadJSON(
+"kidosAccount",
+{
+signedIn:false,
+name:"KidosPlayer",
+handle:"@KidosPlayer",
+about:"Gaming, creative videos, safe livestreams and community posts."
+}
+);
+
+
+let uploads =
+loadJSON("kidosUploads",[]);
+
+let shorts =
+loadJSON("kidosShorts",[]);
 
 let posts =
-JSON.parse(localStorage.getItem("kidosPosts") || "[]");
+loadJSON("kidosPosts",[]);
 
 let history =
-JSON.parse(localStorage.getItem("kidosHistory") || "[]");
+loadJSON("kidosHistory",[]);
 
+let liked =
+loadJSON("kidosLiked",[]);
+
+let follows =
+loadJSON("kidosFollows",[]);
+
+let commentsByVideo =
+loadJSON("kidosComments",{});
+
+
+/* SAFETY DATA */
+
+let safety = loadJSON(
+"kidosSafety",
+{
+mild:0,
+strong:0,
+severe:0,
+banUntil:0,
+locked:false
+}
+);
+
+
+/* DEMO CONTENT */
 
 const demoVideos = [
 
 {
-id:"video1",
+id:"d1",
 title:"Roblox Rivals Challenge",
 channel:"Kidos Gaming",
 views:"24K views",
 time:"3 hours ago",
 duration:"8:42",
-style:""
+style:"",
+desc:"A competitive Roblox challenge."
 },
 
 {
-id:"video2",
+id:"d2",
 title:"Building the Fastest Car",
 channel:"SpeedBuild",
 views:"63K views",
 time:"1 day ago",
 duration:"10:21",
-style:"red"
+style:"red",
+desc:"Building and testing a very fast car."
 },
 
 {
-id:"video3",
+id:"d3",
 title:"Ranked Matches Live",
 channel:"NovaPlay",
 views:"418 watching",
 time:"Live",
 live:true,
-style:"purple"
+style:"purple",
+desc:"Ranked gameplay livestream."
 },
 
 {
-id:"video4",
+id:"d4",
 title:"Making a New Game",
 channel:"GameBuilder",
 views:"18K views",
 time:"5 hours ago",
 duration:"12:05",
-style:"green"
+style:"green",
+desc:"A game-building session."
 },
 
 {
-id:"video5",
+id:"d5",
 title:"Can I Win With the Worst Loadout?",
 channel:"Kidos Gaming",
 views:"41K views",
 time:"2 days ago",
 duration:"9:11",
-style:""
+style:"",
+desc:"A difficult loadout challenge."
 },
 
 {
-id:"video6",
+id:"d6",
 title:"How I Built This Map",
 channel:"BuilderZone",
 views:"31K views",
 time:"4 days ago",
 duration:"7:58",
-style:"green"
+style:"green",
+desc:"A full map-building walkthrough."
 },
 
 {
-id:"video7",
+id:"d7",
 title:"Best Gaming Moments",
 channel:"ClipCenter",
 views:"102K views",
 time:"6 days ago",
 duration:"6:24",
-style:"purple"
+style:"purple",
+desc:"A collection of gaming highlights."
 },
 
 {
-id:"video8",
+id:"d8",
 title:"Secret Base Build",
 channel:"WorldCreator",
 views:"29K views",
 time:"1 week ago",
 duration:"11:46",
-style:"red"
+style:"red",
+desc:"Building a hidden base."
 }
 
 ];
@@ -1454,31 +2042,37 @@ style:"red"
 const demoShorts = [
 
 {
+id:"s1",
 title:"One HP comeback",
 views:"1.2M views"
 },
 
 {
+id:"s2",
 title:"Fastest build",
 views:"820K views"
 },
 
 {
+id:"s3",
 title:"Impossible shot",
 views:"570K views"
 },
 
 {
+id:"s4",
 title:"Clean win",
 views:"440K views"
 },
 
 {
+id:"s5",
 title:"New map idea",
 views:"211K views"
 },
 
 {
+id:"s6",
 title:"Perfect timing",
 views:"764K views"
 }
@@ -1486,326 +2080,790 @@ views:"764K views"
 ];
 
 
-/* HELPERS */
+/*
+MULTILINGUAL MODERATION
 
-function save(){
+MILD = warning
+STRONG = blocked + 1 day
+SEVERE = blocked + 30 days
+*/
 
-localStorage.setItem(
-"kidosAccount",
-JSON.stringify(account)
+
+const WORDS = {
+
+mild:[
+
+/* English */
+
+"stupid",
+"dumb",
+"idiot",
+"loser",
+"moron",
+"noob",
+
+/* Arabic */
+
+"غبي",
+"غبى",
+"احمق",
+"أحمق",
+"حمار",
+"كلب",
+"تافه",
+"اهبل",
+"هبل",
+
+/* Spanish */
+
+"idiota",
+"tonto",
+"estupido",
+"estúpido",
+"imbecil",
+"imbécil",
+
+/* French */
+
+"bete",
+"bête",
+"stupide",
+"imbecile",
+"imbécile",
+
+/* German */
+
+"dumm",
+"trottel",
+"blod",
+"blöd",
+
+/* Italian */
+
+"stupido",
+"scemo",
+
+/* Portuguese */
+
+"burro",
+
+/* Turkish */
+
+"salak",
+"aptal",
+"gerizekali",
+"gerizekalı",
+
+/* Greek */
+
+"ηλιθιος",
+"ηλίθιος",
+"βλακας",
+"βλάκας",
+
+/* Russian */
+
+"дурак",
+"идиот",
+"тупой",
+
+/* Hindi */
+
+"बेवकूफ",
+"मूर्ख",
+
+/* Urdu */
+
+"بیوقوف",
+
+/* Indonesian */
+
+"bodoh",
+"tolol",
+
+/* Dutch */
+
+"sukkel",
+
+/* Polish */
+
+"glupi",
+"głupi",
+
+/* Romanian */
+
+"fraier"
+
+],
+
+
+strong:[
+
+/* English */
+
+"fuck",
+"fucking",
+"shit",
+"bitch",
+"asshole",
+"motherfucker",
+
+/* Arabic */
+
+"خرا",
+"زق",
+"قحبة",
+"شرموط",
+"شرموطة",
+"كس",
+"زب",
+"طيز",
+"نيك",
+
+/* Spanish */
+
+"puta",
+"puto",
+"mierda",
+"joder",
+"cabron",
+"cabrón",
+
+/* French */
+
+"merde",
+"putain",
+"connard",
+"salope",
+
+/* German */
+
+"scheisse",
+"scheiße",
+"arschloch",
+"hurensohn",
+
+/* Italian */
+
+"cazzo",
+"merda",
+"stronzo",
+"puttana",
+
+/* Portuguese */
+
+"caralho",
+"porra",
+"filho da puta",
+
+/* Turkish */
+
+"siktir",
+"orospu",
+
+/* Greek */
+
+"μαλακα",
+"μαλάκα",
+"γαμησου",
+"γαμήσου",
+
+/* Russian */
+
+"блять",
+"сука",
+"хуй",
+"пизда",
+
+/* Hindi */
+
+"चूतिया",
+"मादरचोद",
+"बहनचोद",
+
+/* Urdu */
+
+"چوتیا",
+"مادرچود",
+"بہنچود",
+
+/* Indonesian */
+
+"kontol",
+"bangsat",
+
+/* Polish */
+
+"kurwa"
+
+],
+
+
+severe:[
+
+/* English */
+
+"kill yourself",
+"kys",
+"go die",
+"i will kill you",
+"rape you",
+"i know where you live",
+
+/* Arabic */
+
+"اقتل نفسك",
+"انتحر",
+"سوف اقتلك",
+"راح اقتلك",
+"بدي اقتلك",
+"سأقتلك",
+"اغتصبك",
+
+/* Spanish */
+
+"matate",
+"mátate",
+"te voy a matar",
+
+/* French */
+
+"tue toi",
+"je vais te tuer",
+
+/* German */
+
+"bring dich um",
+"ich werde dich töten",
+
+/* Italian */
+
+"ucciditi",
+"ti uccidero",
+"ti ucciderò",
+
+/* Portuguese */
+
+"mate se",
+"vou te matar",
+
+/* Turkish */
+
+"kendini öldür",
+"seni öldüreceğim",
+
+/* Greek */
+
+"θα σε σκοτωσω",
+"θα σε σκοτώσω",
+
+/* Russian */
+
+"убей себя",
+"я тебя убью",
+
+/* Hindi */
+
+"खुद को मार डालो",
+"मैं तुम्हें मार दूंगा",
+
+/* Urdu */
+
+"خود کو مار دو",
+"میں تمہیں مار دوں گا"
+
+]
+
+};
+
+
+/* ARABIC NORMALIZATION */
+
+function normalizeArabic(text){
+
+return text
+
+.replace(
+/[\u064B-\u065F\u0670\u06D6-\u06ED]/g,
+""
+)
+
+.replace(/ـ/g,"")
+
+.replace(/[أإآٱ]/g,"ا")
+
+.replace(/ؤ/g,"و")
+
+.replace(/ئ/g,"ي")
+
+.replace(/ى/g,"ي");
+
+}
+
+
+/* ANTI FILTER BYPASS */
+
+function normalizeText(input){
+
+let text =
+String(input || "")
+.normalize("NFKC")
+.toLowerCase();
+
+text =
+normalizeArabic(text);
+
+
+/* LEETSPEAK */
+
+text =
+text
+.replace(/@/g,"a")
+.replace(/4/g,"a")
+.replace(/3/g,"e")
+.replace(/[1!|]/g,"i")
+.replace(/0/g,"o")
+.replace(/[5$]/g,"s")
+.replace(/7/g,"t");
+
+
+/* FUUUUUCK -> FUCCK STYLE REDUCTION */
+
+text =
+text.replace(
+/(.)\1{2,}/gu,
+"$1$1"
 );
 
-localStorage.setItem(
-"kidosVideos",
-JSON.stringify(uploadedVideos)
-);
 
-localStorage.setItem(
-"kidosShorts",
-JSON.stringify(uploadedShorts)
-);
+/* REMOVE BYPASS SYMBOLS */
 
-localStorage.setItem(
-"kidosPosts",
-JSON.stringify(posts)
-);
+text =
+text
+.replace(
+/[^\p{L}\p{N}]+/gu,
+" "
+)
 
-localStorage.setItem(
-"kidosHistory",
-JSON.stringify(history)
+.replace(
+/\s+/g,
+" "
+)
+
+.trim();
+
+
+return text;
+
+}
+
+
+/* NORMALIZED WORD LIST */
+
+const normalizedLists = {
+
+mild:
+WORDS.mild.map(normalizeText),
+
+strong:
+WORDS.strong.map(normalizeText),
+
+severe:
+WORDS.severe.map(normalizeText)
+
+};
+
+
+function containsTerm(text,term){
+
+if(!term){
+return false;
+}
+
+const compact =
+text.replace(/\s/g,"");
+
+const compactTerm =
+term.replace(/\s/g,"");
+
+
+/* PHRASE */
+
+if(term.includes(" ")){
+
+return (
+text.includes(term)
+||
+compact.includes(compactTerm)
 );
 
 }
 
 
-function escapeHTML(text){
+/* SINGLE WORD */
 
-return String(text || "")
-.replaceAll("&","&amp;")
-.replaceAll("<","&lt;")
-.replaceAll(">","&gt;")
-.replaceAll('"',"&quot;")
-.replaceAll("'","&#039;");
+const words =
+text.split(" ");
 
-}
-
-
-/* NAVIGATION */
-
-function showPage(name){
-
-$$(".page").forEach(page=>{
-page.classList.remove("active");
-});
-
-const page =
-$("#page-" + name);
-
-if(page){
-page.classList.add("active");
-}
-
-$$(".sidebar-button").forEach(button=>{
-
-button.classList.toggle(
-"active",
-button.dataset.page === name
+return (
+words.includes(term)
+||
+compact.includes(compactTerm)
 );
 
-});
-
-window.scrollTo(0,0);
-
 }
 
 
-$$(".sidebar-button").forEach(button=>{
+/* MODERATION CHECK */
 
-button.addEventListener("click",()=>{
+function moderateText(text){
 
-const target =
-button.dataset.page;
+const normalized =
+normalizeText(text);
 
-if(
-["upload","uploadshort","live","posts","channel"]
-.includes(target)
-&&
-!account.signedIn
+
+for(
+const level
+of
+["severe","strong","mild"]
 ){
 
-openSignin();
-return;
-
-}
-
-showPage(target);
-
-});
-
-});
-
-
-/* SIDEBAR */
-
-$("#menuButton").onclick = ()=>{
-
-$("#sidebar").classList.toggle("hidden");
-
-};
-
-
-/* SIGN IN */
-
-function openSignin(){
-
-$("#signinOverlay")
-.classList.remove("hidden");
-
-}
-
-
-$("#signinButton").onclick = openSignin;
-
-
-$("#closeSignin").onclick = ()=>{
-
-$("#signinOverlay")
-.classList.add("hidden");
-
-};
-
-
-$("#continueWithoutAccount").onclick = ()=>{
-
-$("#signinOverlay")
-.classList.add("hidden");
-
-showPage("home");
-
-};
-
-
-$("#parentHelpButton").onclick = ()=>{
-
-$("#signinOverlay")
-.classList.add("hidden");
-
-$("#accountOverlay")
-.classList.remove("hidden");
-
-};
-
-
-$("#cancelAccountButton").onclick = ()=>{
-
-$("#accountOverlay")
-.classList.add("hidden");
-
-};
-
-
-$("#createAccountButton").onclick = ()=>{
-
-let name =
-$("#accountName")
-.value
-.trim();
-
-let handle =
-$("#accountHandle")
-.value
-.trim();
-
-if(!name){
-
-alert("Choose a channel name.");
-
-return;
-
-}
-
-if(!handle){
-
-handle =
-"@" +
-name.replace(/\s+/g,"");
-
-}
-
-if(!handle.startsWith("@")){
-
-handle = "@" + handle;
-
-}
-
-account = {
-
-signedIn:true,
-name:name,
-handle:handle
-
-};
-
-save();
-
-$("#accountOverlay")
-.classList.add("hidden");
-
-render();
-
-showPage("channel");
-
-};
-
-
-/* PROFILE */
-
-$("#profileButton").onclick = ()=>{
-
-showPage("channel");
-
-};
-
-
-/* CREATE MENU */
-
-$("#createButton").onclick = ()=>{
-
-if(!account.signedIn){
-
-openSignin();
-
-return;
-
-}
-
-$("#createOverlay")
-.classList.remove("hidden");
-
-};
-
-
-$("#closeCreate").onclick = ()=>{
-
-$("#createOverlay")
-.classList.add("hidden");
-
-};
-
-
-$$("[data-create-page]").forEach(button=>{
-
-button.onclick = ()=>{
-
-$("#createOverlay")
-.classList.add("hidden");
-
-showPage(
-button.dataset.createPage
+const detected =
+normalizedLists[level]
+.find(
+term =>
+containsTerm(
+normalized,
+term
+)
 );
 
+if(detected){
+
+return {
+level:level,
+term:detected
 };
 
-});
-
-
-/* VIDEO CARDS */
-
-function createVideoCard(video){
-
-let duration = "";
-
-if(video.live){
-
-duration =
-'<div class="live-label">LIVE</div>';
-
-}else{
-
-duration =
-`<div class="duration">${video.duration || "NEW"}</div>`;
+}
 
 }
+
+
+return {
+level:"ok"
+};
+
+}
+
+
+/* BAN DISPLAY */
+
+function restrictionText(){
+
+if(safety.locked){
+
+return "Locked for review";
+
+}
+
+const remaining =
+safety.banUntil - Date.now();
+
+if(remaining <= 0){
+
+return "None";
+
+}
+
+const hours =
+Math.ceil(
+remaining / 3600000
+);
+
+if(hours >= 48){
+
+return (
+Math.ceil(hours / 24)
++
+" days"
+);
+
+}
+
+return hours + " hours";
+
+}
+
+
+/* STRIKES */
+
+function addSafetyStrike(level){
+
+if(level === "mild"){
+
+safety.mild++;
+
+
+/* EVERY 3 MILD WARNINGS */
+
+if(
+safety.mild % 3 === 0
+){
+
+safety.banUntil =
+Math.max(
+safety.banUntil,
+Date.now()
++
+10 * 60 * 1000
+);
+
+}
+
+}
+
+
+if(level === "strong"){
+
+safety.strong++;
+
+safety.banUntil =
+Math.max(
+safety.banUntil,
+Date.now()
++
+24 * 60 * 60 * 1000
+);
+
+}
+
+
+if(level === "severe"){
+
+safety.severe++;
+
+safety.banUntil =
+Math.max(
+safety.banUntil,
+Date.now()
++
+30 * 24 * 60 * 60 * 1000
+);
+
+
+/* REPEATED SEVERE ABUSE */
+
+if(
+safety.severe >= 2
+){
+
+safety.locked = true;
+
+}
+
+}
+
+
+saveJSON(
+"kidosSafety",
+safety
+);
+
+renderSafety();
+
+}
+
+
+/* CAN USER POST */
+
+function canPost(){
+
+if(safety.locked){
+
+alert(
+"This account is locked for safety review."
+);
+
+return false;
+
+}
+
+
+if(
+Date.now()
+<
+safety.banUntil
+){
+
+alert(
+"Posting and chat are temporarily restricted for "
++
+restrictionText()
++
+"."
+);
+
+return false;
+
+}
+
+
+return true;
+
+}
+
+
+/* CHECK POSTS / COMMENTS / TITLES */
+
+function checkUGC(
+text,
+options = {}
+){
+
+const allowMild =
+options.allowMild !== false;
+
+const result =
+moderateText(text);
+
+
+if(
+result.level === "ok"
+){
+
+return {
+ok:true,
+level:"ok"
+};
+
+}
+
+
+addSafetyStrike(
+result.level
+);
+
+
+if(
+result.level === "mild"
+){
+
+alert(
+"Safety warning: please keep it friendly. Mild insults are warning-level."
+);
+
+return {
+ok:allowMild,
+level:"mild"
+};
+
+}
+
+
+if(
+result.level === "strong"
+){
+
+alert(
+"Strong profanity was blocked. A 1-day restriction was applied."
+);
+
+return {
+ok:false,
+level:"strong"
+};
+
+}
+
+
+alert(
+"Severe abusive or threatening language was blocked. A long safety restriction was applied."
+);
+
+return {
+ok:false,
+level:"severe"
+};
+
+}
+
+
+/* VIDEO HELPERS */
+
+function allVideos(){
+
+return [
+
+...uploads.map(
+video => ({
+...video,
+channel:account.name
+})
+),
+
+...demoVideos
+
+];
+
+}
+
+
+function videoCard(video){
 
 return `
 
 <div
 class="video-card"
-data-video-id="${video.id}"
+data-watch="${esc(video.id)}"
 >
 
-<div class="thumbnail">
+<div class="thumb">
 
-<div class="thumbnail-design ${video.style || ""}">
-${escapeHTML(video.title)}
+<div class="thumbart ${esc(video.style || "")}">
+${esc(video.title)}
 </div>
 
-${duration}
+${
+video.live
+
+?
+
+'<div class="livepill">LIVE</div>'
+
+:
+
+`
+<div class="duration">
+${esc(video.duration || "NEW")}
+</div>
+`
+}
 
 </div>
 
-<div class="video-info">
+<div class="vmeta">
 
-<div class="channel-avatar">
-${escapeHTML(
-(video.channel || "K")[0]
+<div class="chanava">
+${esc(
+(video.channel || "K")[0].toUpperCase()
 )}
 </div>
 
 <div>
 
-<div class="video-title">
-${escapeHTML(video.title)}
+<div class="vtitle">
+${esc(video.title)}
 </div>
 
-<div class="video-sub">
-${escapeHTML(video.channel)}
+<div class="sub">
+${esc(video.channel || account.name)}
 </div>
 
-<div class="video-sub">
-${escapeHTML(video.views || "0 views")}
+<div class="sub">
+${esc(video.views || "0 views")}
  ·
-${escapeHTML(video.time || "Just now")}
+${esc(video.time || "Just now")}
 </div>
 
 </div>
@@ -1819,24 +2877,22 @@ ${escapeHTML(video.time || "Just now")}
 }
 
 
-/* SHORT CARD */
-
-function createShort(short){
+function shortCard(short){
 
 return `
 
-<div>
+<div class="short-card">
 
-<div class="short-thumb">
-${escapeHTML(short.title)}
+<div class="shortthumb">
+${esc(short.title)}
 </div>
 
-<div class="video-title" style="margin-top:8px;">
-${escapeHTML(short.title)}
+<div class="vtitle" style="margin-top:8px">
+${esc(short.title)}
 </div>
 
-<div class="video-sub">
-${escapeHTML(short.views || "0 views")}
+<div class="sub">
+${esc(short.views || "0 views")}
 </div>
 
 </div>
@@ -1846,28 +2902,28 @@ ${escapeHTML(short.views || "0 views")}
 }
 
 
-/* POST */
-
-function createPost(post){
+function postCard(post){
 
 return `
 
 <div class="post">
 
-<div class="post-header">
+<div class="posthead">
 
-<div class="channel-avatar">
-${escapeHTML(account.name[0])}
+<div class="chanava">
+${esc(
+account.name[0].toUpperCase()
+)}
 </div>
 
 <div>
 
-<strong>
-${escapeHTML(account.name)}
-</strong>
+<b>
+${esc(account.name)}
+</b>
 
-<div class="video-sub">
-Just now
+<div class="sub">
+${esc(post.time || "Just now")}
 </div>
 
 </div>
@@ -1875,16 +2931,16 @@ Just now
 </div>
 
 <div>
-${escapeHTML(post.text)}
+${esc(post.text)}
 </div>
 
-<div style="margin-top:15px;">
+<div style="margin-top:12px">
 
-<button class="secondary">
+<button class="smallbtn">
 Like
 </button>
 
-<button class="secondary">
+<button class="smallbtn">
 Comment
 </button>
 
@@ -1897,102 +2953,643 @@ Comment
 }
 
 
-/* RENDER */
+/* NAVIGATION */
+
+function showPage(name){
+
+$$(".page")
+.forEach(
+page =>
+page.classList.remove("active")
+);
+
+
+const page =
+$("#page-" + name);
+
+
+if(page){
+
+page.classList.add("active");
+
+}
+
+
+$$(".side")
+.forEach(
+button =>
+button.classList.toggle(
+"active",
+button.dataset.page === name
+)
+);
+
+
+window.scrollTo(
+0,
+0
+);
+
+}
+
+
+function needsAccount(page){
+
+return [
+
+"channel",
+"upload",
+"uploadshort",
+"live",
+"posts",
+"liked",
+"settings"
+
+].includes(page);
+
+}
+
+
+$$(".side")
+.forEach(
+button => {
+
+button.onclick = () => {
+
+if(
+needsAccount(
+button.dataset.page
+)
+&&
+!account.signedIn
+){
+
+openSignin();
+
+return;
+
+}
+
+showPage(
+button.dataset.page
+);
+
+};
+
+});
+
+
+$("#menuBtn").onclick = () => {
+
+$("#sidebar")
+.classList
+.toggle("hidden");
+
+};
+
+
+/* SIGN IN */
+
+function openSignin(){
+
+$("#signinOverlay")
+.classList
+.remove("hidden");
+
+}
+
+
+$("#signInTop").onclick =
+openSignin;
+
+
+$("#closeSignin").onclick = () => {
+
+$("#signinOverlay")
+.classList
+.add("hidden");
+
+};
+
+
+$("#browseGuest").onclick = () => {
+
+$("#signinOverlay")
+.classList
+.add("hidden");
+
+showPage("home");
+
+};
+
+
+$("#googleMock").onclick = () => {
+
+alert(
+"Real Google sign-in needs a hosted Google OAuth setup. This prototype does not access your Google information."
+);
+
+};
+
+
+$("#parentHelp").onclick = () => {
+
+$("#signinOverlay")
+.classList
+.add("hidden");
+
+$("#accountOverlay")
+.classList
+.remove("hidden");
+
+};
+
+
+$("#cancelAccount").onclick = () => {
+
+$("#accountOverlay")
+.classList
+.add("hidden");
+
+};
+
+
+/* CREATE ACCOUNT */
+
+$("#createAccount").onclick = () => {
+
+if(
+!$("#parentCheck").checked
+){
+
+alert(
+"A parent or guardian must help with account creation."
+);
+
+return;
+
+}
+
+
+let name =
+$("#accountName")
+.value
+.trim();
+
+
+let handle =
+$("#accountHandle")
+.value
+.trim();
+
+
+if(!name){
+
+alert(
+"Choose a channel name."
+);
+
+return;
+
+}
+
+
+/* MODERATE PROFILE */
+
+if(
+!checkUGC(
+name,
+{
+allowMild:false
+}
+).ok
+){
+
+return;
+
+}
+
+
+if(
+handle
+&&
+!checkUGC(
+handle,
+{
+allowMild:false
+}
+).ok
+){
+
+return;
+
+}
+
+
+if(!handle){
+
+handle =
+"@"
++
+name.replace(
+/\s+/g,
+""
+);
+
+}
+
+
+if(
+!handle.startsWith("@")
+){
+
+handle =
+"@" + handle;
+
+}
+
+
+account = {
+
+signedIn:true,
+
+name:name,
+
+handle:handle,
+
+about:
+"Gaming, creative videos, safe livestreams and community posts."
+
+};
+
+
+saveJSON(
+"kidosAccount",
+account
+);
+
+
+$("#accountOverlay")
+.classList
+.add("hidden");
+
+
+render();
+
+showPage(
+"channel"
+);
+
+};
+
+
+/* PROFILE BUTTON */
+
+$("#avatarTop").onclick = () => {
+
+showPage(
+"channel"
+);
+
+};
+
+
+/* CREATE MENU */
+
+$("#createTop").onclick = () => {
+
+if(
+!account.signedIn
+){
+
+openSignin();
+
+return;
+
+}
+
+
+$("#createOverlay")
+.classList
+.remove("hidden");
+
+};
+
+
+$("#closeCreate").onclick = () => {
+
+$("#createOverlay")
+.classList
+.add("hidden");
+
+};
+
+
+$$("[data-create]")
+.forEach(
+button => {
+
+button.onclick = () => {
+
+$("#createOverlay")
+.classList
+.add("hidden");
+
+showPage(
+button.dataset.create
+);
+
+};
+
+});
+
+
+/* CHANNEL SETTINGS */
+
+$("#customizeBtn").onclick = () => {
+
+showPage(
+"settings"
+);
+
+};
+
+
+$("#saveSettings").onclick = () => {
+
+const name =
+$("#settingsName")
+.value
+.trim()
+||
+account.name;
+
+
+const handle =
+$("#settingsHandle")
+.value
+.trim()
+||
+account.handle;
+
+
+const about =
+$("#settingsAbout")
+.value
+.trim();
+
+
+if(
+!checkUGC(
+name,
+{
+allowMild:false
+}
+).ok
+){
+
+return;
+
+}
+
+
+if(
+!checkUGC(
+handle,
+{
+allowMild:false
+}
+).ok
+){
+
+return;
+
+}
+
+
+if(
+!checkUGC(
+about
+).ok
+){
+
+return;
+
+}
+
+
+account.name =
+name;
+
+
+account.handle =
+handle.startsWith("@")
+?
+handle
+:
+"@" + handle;
+
+
+account.about =
+about;
+
+
+saveJSON(
+"kidosAccount",
+account
+);
+
+
+render();
+
+showPage(
+"channel"
+);
+
+};
+
+
+/* SAFETY PAGE */
+
+function renderSafety(){
+
+$("#warningStat")
+.textContent =
+safety.mild;
+
+
+$("#strongStat")
+.textContent =
+safety.strong;
+
+
+$("#severeStat")
+.textContent =
+safety.severe;
+
+
+const restriction =
+restrictionText();
+
+
+$("#restrictionStat")
+.textContent =
+restriction;
+
+
+$("#restrictionStat")
+.className =
+
+restriction === "None"
+
+?
+
+"ok"
+
+:
+
+(
+safety.locked
+
+?
+
+"bad"
+
+:
+
+"warntext"
+);
+
+}
+
+
+/* MAIN RENDER */
 
 function render(){
 
-const combinedVideos = [
-
-...uploadedVideos,
-
-...demoVideos
-
-];
-
-
-$("#homeVideos").innerHTML =
-combinedVideos
+$("#homeGrid")
+.innerHTML =
+allVideos()
 .slice(0,8)
-.map(createVideoCard)
+.map(videoCard)
 .join("");
 
 
-$("#subscriptionVideos").innerHTML =
-demoVideos
-.slice(1,7)
-.map(createVideoCard)
-.join("");
-
-
-$("#homeShorts").innerHTML =
+$("#homeShorts")
+.innerHTML =
 [
-...uploadedShorts,
+...shorts,
 ...demoShorts
 ]
 .slice(0,6)
-.map(createShort)
+.map(shortCard)
 .join("");
 
 
-$("#shortsVideos").innerHTML =
+$("#shortsGrid")
+.innerHTML =
 [
-...uploadedShorts,
+...shorts,
 ...demoShorts
 ]
-.map(createShort)
+.map(shortCard)
 .join("");
 
 
-if(uploadedVideos.length){
-
-$("#channelVideos").innerHTML =
-uploadedVideos
-.map(createVideoCard)
-.join("");
-
-}else{
-
-$("#channelVideos").innerHTML =
-'<div class="video-sub">No videos uploaded yet.</div>';
-
-}
+const followedVideos =
+demoVideos.filter(
+video =>
+follows.includes(
+video.channel
+)
+);
 
 
-if(posts.length){
+$("#followingGrid")
+.innerHTML =
 
-$("#channelPosts").innerHTML =
+followedVideos.length
+
+?
+
+followedVideos
+.map(videoCard)
+.join("")
+
+:
+
+'<div class="sub">Follow channels and their newest videos will appear here.</div>';
+
+
+$("#channelVideos")
+.innerHTML =
+
+uploads.length
+
+?
+
+uploads
+.map(videoCard)
+.join("")
+
+:
+
+'<div class="sub">No videos uploaded yet.</div>';
+
+
+$("#channelPosts")
+.innerHTML =
+
+posts.length
+
+?
+
 posts
-.map(createPost)
-.join("");
+.map(postCard)
+.join("")
 
-$("#postsList").innerHTML =
+:
+
+'<div class="sub">No posts yet.</div>';
+
+
+$("#postsFeed")
+.innerHTML =
 posts
-.map(createPost)
+.map(postCard)
 .join("");
 
-}else{
 
-$("#channelPosts").innerHTML =
-'<div class="video-sub">No posts yet.</div>';
+$("#historyGrid")
+.innerHTML =
 
-$("#postsList").innerHTML = "";
+history.length
 
-}
+?
 
-
-if(history.length){
-
-$("#historyVideos").innerHTML =
 history
-.map(createVideoCard)
-.join("");
+.map(videoCard)
+.join("")
 
-}else{
+:
 
-$("#historyVideos").innerHTML =
-'<div class="video-sub">Your history is empty.</div>';
+'<div class="sub">Your history is empty.</div>';
 
-}
+
+$("#likedGrid")
+.innerHTML =
+
+liked.length
+
+?
+
+liked
+.map(videoCard)
+.join("")
+
+:
+
+'<div class="sub">No liked videos yet.</div>';
 
 
 $("#channelName")
@@ -2008,86 +3605,85 @@ account.name[0]
 
 $("#channelStats")
 .textContent =
+
 account.handle
 +
-" · 0 subscribers · "
+" · 0 followers · "
 +
-uploadedVideos.length
+uploads.length
 +
-" videos";
+" video"
++
+(
+uploads.length === 1
+?
+""
+:
+"s"
+);
 
 
-if(account.signedIn){
+$("#channelAbout")
+.textContent =
+account.about;
 
-$("#signinButton")
-.classList.add("hidden");
 
-$("#profileButton")
-.classList.remove("hidden");
+$("#settingsName")
+.value =
+account.name;
 
-$("#profileButton")
+
+$("#settingsHandle")
+.value =
+account.handle;
+
+
+$("#settingsAbout")
+.value =
+account.about;
+
+
+$("#signInTop")
+.classList
+.toggle(
+"hidden",
+account.signedIn
+);
+
+
+$("#avatarTop")
+.classList
+.toggle(
+"hidden",
+!account.signedIn
+);
+
+
+$("#avatarTop")
 .textContent =
 account.name[0]
 .toUpperCase();
 
-}else{
 
-$("#signinButton")
-.classList.remove("hidden");
+renderSafety();
 
-$("#profileButton")
-.classList.add("hidden");
-
-}
-
-attachVideoClicks();
+bindWatch();
 
 }
 
 
-/* CLICK VIDEO */
+/* WATCH VIDEO */
 
-function attachVideoClicks(){
+function bindWatch(){
 
-$$("[data-video-id]")
-.forEach(card=>{
+$$("[data-watch]")
+.forEach(
+element => {
 
-card.onclick = ()=>{
+element.onclick = () => {
 
-const id =
-card.dataset.videoId;
-
-const all =
-[
-...uploadedVideos,
-...demoVideos
-];
-
-const video =
-all.find(v=>v.id === id);
-
-if(!video){
-return;
-}
-
-history =
-history.filter(
-item=>item.id !== video.id
-);
-
-history.unshift(video);
-
-history =
-history.slice(0,30);
-
-save();
-
-render();
-
-alert(
-"Opening video: "
-+
-video.title
+openWatch(
+element.dataset.watch
 );
 
 };
@@ -2097,30 +3693,494 @@ video.title
 }
 
 
-/* SEARCH */
+let currentWatch = null;
 
-function search(){
 
-const text =
-$("#searchInput")
-.value
-.toLowerCase()
-.trim();
+function openWatch(id){
 
-if(!text){
+const video =
+allVideos()
+.find(
+item =>
+item.id === id
+);
 
-render();
+
+if(!video){
 
 return;
 
 }
 
-const results = [
 
-...uploadedVideos,
-...demoVideos
+currentWatch =
+video;
 
-].filter(video=>
+
+/* HISTORY */
+
+history =
+history.filter(
+item =>
+item.id !== id
+);
+
+
+history.unshift(
+video
+);
+
+
+history =
+history.slice(
+0,
+30
+);
+
+
+saveJSON(
+"kidosHistory",
+history
+);
+
+
+$("#watchTitle")
+.textContent =
+video.title;
+
+
+$("#watchChannel")
+.textContent =
+video.channel;
+
+
+$("#watchAvatar")
+.textContent =
+video.channel[0]
+.toUpperCase();
+
+
+$("#watchFollowers")
+.textContent =
+"0 followers";
+
+
+$("#watchViews")
+.textContent =
+video.views
+||
+"0 views";
+
+
+$("#watchDesc")
+.textContent =
+video.desc
+||
+"";
+
+
+$("#fakePlayer")
+.textContent =
+video.title;
+
+
+$("#watchVideo")
+.classList
+.add("hidden");
+
+
+$("#fakePlayer")
+.classList
+.remove("hidden");
+
+
+if(video.localUrl){
+
+$("#watchVideo")
+.src =
+video.localUrl;
+
+
+$("#watchVideo")
+.classList
+.remove("hidden");
+
+
+$("#fakePlayer")
+.classList
+.add("hidden");
+
+}
+
+
+$("#followBtn")
+.textContent =
+
+follows.includes(
+video.channel
+)
+
+?
+
+"Following"
+
+:
+
+"Follow";
+
+
+$("#likeBtn")
+.textContent =
+
+liked.some(
+item =>
+item.id === video.id
+)
+
+?
+
+"Liked"
+
+:
+
+"Like";
+
+
+$("#recommended")
+.innerHTML =
+allVideos()
+.filter(
+item =>
+item.id !== id
+)
+.slice(0,6)
+.map(videoCard)
+.join("");
+
+
+renderComments();
+
+showPage(
+"watch"
+);
+
+
+setTimeout(
+bindWatch,
+0
+);
+
+}
+
+
+/* FOLLOW */
+
+$("#followBtn").onclick = () => {
+
+if(!currentWatch){
+
+return;
+
+}
+
+
+const channel =
+currentWatch.channel;
+
+
+if(
+follows.includes(
+channel
+)
+){
+
+follows =
+follows.filter(
+item =>
+item !== channel
+);
+
+}else{
+
+follows.push(
+channel
+);
+
+}
+
+
+saveJSON(
+"kidosFollows",
+follows
+);
+
+
+$("#followBtn")
+.textContent =
+
+follows.includes(
+channel
+)
+
+?
+
+"Following"
+
+:
+
+"Follow";
+
+
+render();
+
+};
+
+
+/* LIKE */
+
+$("#likeBtn").onclick = () => {
+
+if(!currentWatch){
+
+return;
+
+}
+
+
+if(
+liked.some(
+item =>
+item.id === currentWatch.id
+)
+){
+
+liked =
+liked.filter(
+item =>
+item.id !== currentWatch.id
+);
+
+}else{
+
+liked.unshift(
+currentWatch
+);
+
+}
+
+
+saveJSON(
+"kidosLiked",
+liked
+);
+
+
+$("#likeBtn")
+.textContent =
+
+liked.some(
+item =>
+item.id === currentWatch.id
+)
+
+?
+
+"Liked"
+
+:
+
+"Like";
+
+
+render();
+
+};
+
+
+/* COMMENTS */
+
+function renderComments(){
+
+if(!currentWatch){
+
+return;
+
+}
+
+
+const comments =
+commentsByVideo[
+currentWatch.id
+]
+||
+[];
+
+
+$("#comments")
+.innerHTML =
+
+comments
+.map(
+comment => `
+
+<div class="comment">
+
+<b>
+${esc(comment.user)}
+</b>
+
+<div>
+${esc(comment.text)}
+</div>
+
+</div>
+
+`
+)
+.join("");
+
+}
+
+
+$("#commentBtn").onclick = () => {
+
+if(
+!account.signedIn
+){
+
+openSignin();
+
+return;
+
+}
+
+
+if(
+!canPost()
+){
+
+return;
+
+}
+
+
+const text =
+$("#commentInput")
+.value
+.trim();
+
+
+if(!text){
+
+return;
+
+}
+
+
+const result =
+checkUGC(
+text
+);
+
+
+if(
+!result.ok
+){
+
+return;
+
+}
+
+
+if(
+!commentsByVideo[
+currentWatch.id
+]
+){
+
+commentsByVideo[
+currentWatch.id
+] = [];
+
+}
+
+
+commentsByVideo[
+currentWatch.id
+]
+.unshift({
+
+user:account.name,
+
+text:text
+
+});
+
+
+saveJSON(
+"kidosComments",
+commentsByVideo
+);
+
+
+$("#commentInput")
+.value = "";
+
+
+renderComments();
+
+};
+
+
+/* SEARCH */
+
+$("#searchBtn")
+.onclick =
+search;
+
+
+$("#searchBox")
+.addEventListener(
+"keydown",
+event => {
+
+if(
+event.key === "Enter"
+){
+
+search();
+
+}
+
+});
+
+
+function search(){
+
+const query =
+$("#searchBox")
+.value
+.trim()
+.toLowerCase();
+
+
+if(!query){
+
+render();
+
+showPage(
+"home"
+);
+
+return;
+
+}
+
+
+const results =
+allVideos()
+.filter(
+video =>
 
 (
 video.title
@@ -2130,77 +4190,155 @@ video.title
 video.channel
 )
 .toLowerCase()
-.includes(text)
+.includes(
+query
+)
 
 );
 
-showPage("home");
 
-$("#homeVideos").innerHTML =
+$("#homeGrid")
+.innerHTML =
+
 results.length
+
 ?
-results.map(createVideoCard).join("")
+
+results
+.map(videoCard)
+.join("")
+
 :
-'<div class="video-sub">No results found.</div>';
 
-attachVideoClicks();
-
-}
+'<div class="sub">No results found.</div>';
 
 
-$("#searchButton")
-.onclick =
-search;
+showPage(
+"home"
+);
 
 
-$("#searchInput")
-.addEventListener(
-"keydown",
-event=>{
-
-if(event.key === "Enter"){
-
-search();
+bindWatch();
 
 }
 
-});
+
+/* VIDEO UPLOAD */
+
+let selectedVideoUrl = null;
 
 
-/* UPLOAD VIDEO */
+$("#videoFile").onchange = event => {
 
-$("#publishVideoButton")
-.onclick = ()=>{
+const file =
+event.target.files[0];
 
-if(!account.signedIn){
 
-openSignin();
+if(!file){
 
 return;
 
 }
+
+
+selectedVideoUrl =
+URL.createObjectURL(
+file
+);
+
+
+$("#videoPreview")
+.src =
+selectedVideoUrl;
+
+
+$("#videoPreviewBox")
+.classList
+.remove("hidden");
+
+
+if(
+!$("#videoTitle").value
+){
+
+$("#videoTitle")
+.value =
+file.name.replace(
+/\.[^.]+$/,
+""
+);
+
+}
+
+};
+
+
+$("#publishVideo").onclick = () => {
+
+if(
+!canPost()
+){
+
+return;
+
+}
+
 
 const title =
 $("#videoTitle")
 .value
 .trim();
 
+
+const description =
+$("#videoDescription")
+.value
+.trim();
+
+
 if(!title){
 
-alert("Add a video title.");
+alert(
+"Add a video title."
+);
 
 return;
 
 }
 
-const newVideo = {
+
+if(
+!checkUGC(
+title
+).ok
+){
+
+return;
+
+}
+
+
+if(
+!checkUGC(
+description
+).ok
+){
+
+return;
+
+}
+
+
+uploads.unshift({
 
 id:
-"upload-" + Date.now(),
+"u"
++
+Date.now(),
 
 title:title,
 
-channel:account.name,
+desc:description,
 
 views:"0 views",
 
@@ -2208,149 +4346,566 @@ time:"Just now",
 
 duration:"NEW",
 
-style:""
+style:"",
 
-};
+localUrl:selectedVideoUrl
 
-uploadedVideos.unshift(
-newVideo
+});
+
+
+/*
+Object URLs cannot survive a browser reload,
+so only save video metadata permanently.
+*/
+
+saveJSON(
+"kidosUploads",
+uploads.map(
+video => ({
+...video,
+localUrl:null
+})
+)
 );
 
-save();
-
-$("#videoTitle").value = "";
-
-$("#videoDescription").value = "";
 
 render();
 
-showPage("channel");
+showPage(
+"channel"
+);
+
+
+alert(
+"Video added to this browser prototype. The actual video file is not permanently uploaded online yet."
+);
 
 };
 
 
-/* SHORT */
+/* SHORT UPLOAD */
 
-$("#publishShortButton")
-.onclick = ()=>{
+let selectedShortUrl = null;
 
-if(!account.signedIn){
 
-openSignin();
+$("#shortFile").onchange = event => {
+
+const file =
+event.target.files[0];
+
+
+if(file){
+
+selectedShortUrl =
+URL.createObjectURL(
+file
+);
+
+}
+
+};
+
+
+$("#publishShort").onclick = () => {
+
+if(
+!canPost()
+){
 
 return;
 
 }
+
 
 const title =
 $("#shortTitle")
 .value
 .trim();
 
+
 if(!title){
 
-alert("Add a Short title.");
+alert(
+"Add a Short title."
+);
 
 return;
 
 }
 
-uploadedShorts.unshift({
+
+if(
+!checkUGC(
+title
+).ok
+){
+
+return;
+
+}
+
+
+shorts.unshift({
+
+id:
+"sh"
++
+Date.now(),
 
 title:title,
 
-views:"0 views"
+views:"0 views",
+
+localUrl:selectedShortUrl
 
 });
 
-save();
 
-$("#shortTitle").value = "";
+saveJSON(
+"kidosShorts",
+shorts.map(
+short => ({
+...short,
+localUrl:null
+})
+)
+);
+
 
 render();
 
-showPage("shorts");
+showPage(
+"shorts"
+);
 
 };
 
 
-/* POSTS */
+/* COMMUNITY POSTS */
 
-$("#postButton")
-.onclick = ()=>{
+$("#publishPost").onclick = () => {
 
-if(!account.signedIn){
-
-openSignin();
+if(
+!canPost()
+){
 
 return;
 
 }
 
+
 const text =
-$("#postInput")
+$("#postText")
 .value
 .trim();
 
+
 if(!text){
+
 return;
+
 }
+
+
+const result =
+checkUGC(
+text
+);
+
+
+if(
+!result.ok
+){
+
+return;
+
+}
+
 
 posts.unshift({
 
-text:text
+id:Date.now(),
+
+text:text,
+
+time:"Just now"
 
 });
 
-save();
 
-$("#postInput").value = "";
+saveJSON(
+"kidosPosts",
+posts
+);
+
+
+$("#postText")
+.value =
+"";
+
 
 render();
 
 };
 
 
-/* LIVE */
+/* LIVE SCREEN / MIC / CAMERA */
 
-let micOn = false;
-let cameraOn = false;
-let live = false;
+let screenStream = null;
+let micStream = null;
+let camStream = null;
+let liveOn = false;
 
 
-$("#micButton").onclick = ()=>{
+function composeLive(){
 
-micOn = !micOn;
+const tracks = [];
 
-$("#micButton")
-.textContent =
-micOn
+
+if(screenStream){
+
+tracks.push(
+...screenStream.getVideoTracks(),
+...screenStream.getAudioTracks()
+);
+
+}
+
+
+if(
+!screenStream
+&&
+camStream
+){
+
+tracks.push(
+...camStream.getVideoTracks()
+);
+
+}
+
+
+if(micStream){
+
+tracks.push(
+...micStream.getAudioTracks()
+);
+
+}
+
+
+$("#livePreview")
+.srcObject =
+
+tracks.length
+
 ?
-"Mic On"
+
+new MediaStream(
+tracks
+)
+
 :
-"Mic Off";
+
+null;
+
+
+$("#livePlaceholder")
+.classList
+.toggle(
+"hidden",
+tracks.length > 0
+);
+
+}
+
+
+/* SCREEN */
+
+$("#shareScreen").onclick = async () => {
+
+try{
+
+screenStream =
+await navigator.mediaDevices.getDisplayMedia({
+
+video:true,
+audio:true
+
+});
+
+
+screenStream
+.getVideoTracks()[0]
+.onended = () => {
+
+screenStream = null;
+
+composeLive();
 
 };
 
 
-$("#cameraButton").onclick = ()=>{
+composeLive();
 
-cameraOn = !cameraOn;
+}catch{
 
-$("#cameraButton")
+}
+
+};
+
+
+/* MIC */
+
+$("#micBtn").onclick = async () => {
+
+if(micStream){
+
+micStream
+.getTracks()
+.forEach(
+track =>
+track.stop()
+);
+
+
+micStream = null;
+
+
+$("#micBtn")
 .textContent =
-cameraOn
-?
-"Camera On"
-:
+"Mic Off";
+
+
+composeLive();
+
+return;
+
+}
+
+
+try{
+
+micStream =
+await navigator.mediaDevices.getUserMedia({
+
+audio:true
+
+});
+
+
+$("#micBtn")
+.textContent =
+"Mic On";
+
+
+composeLive();
+
+}catch{
+
+alert(
+"Microphone permission was not allowed."
+);
+
+}
+
+};
+
+
+/* CAMERA */
+
+$("#camBtn").onclick = async () => {
+
+if(camStream){
+
+camStream
+.getTracks()
+.forEach(
+track =>
+track.stop()
+);
+
+
+camStream = null;
+
+
+$("#camBtn")
+.textContent =
+"Camera Off";
+
+
+composeLive();
+
+return;
+
+}
+
+
+try{
+
+camStream =
+await navigator.mediaDevices.getUserMedia({
+
+video:true
+
+});
+
+
+$("#camBtn")
+.textContent =
+"Camera On";
+
+
+composeLive();
+
+}catch{
+
+alert(
+"Camera permission was not allowed."
+);
+
+}
+
+};
+
+
+/* START LIVE */
+
+$("#goLive").onclick = () => {
+
+if(
+!canPost()
+){
+
+return;
+
+}
+
+
+const title =
+$("#liveTitle")
+.value
+.trim();
+
+
+if(
+!checkUGC(
+title
+).ok
+){
+
+return;
+
+}
+
+
+if(
+!screenStream
+&&
+!camStream
+){
+
+alert(
+"Share your game or screen, or turn on camera first."
+);
+
+return;
+
+}
+
+
+liveOn = true;
+
+
+$("#goLive")
+.classList
+.add("hidden");
+
+
+$("#endLive")
+.classList
+.remove("hidden");
+
+
+$("#chatLog")
+.insertAdjacentHTML(
+"beforeend",
+`
+<div class="msg">
+Your local live preview is active.
+</div>
+`
+);
+
+};
+
+
+/* END LIVE */
+
+$("#endLive").onclick = () => {
+
+[
+screenStream,
+micStream,
+camStream
+]
+.forEach(
+stream => {
+
+if(stream){
+
+stream
+.getTracks()
+.forEach(
+track =>
+track.stop()
+);
+
+}
+
+});
+
+
+screenStream = null;
+micStream = null;
+camStream = null;
+
+
+composeLive();
+
+
+liveOn = false;
+
+
+$("#goLive")
+.classList
+.remove("hidden");
+
+
+$("#endLive")
+.classList
+.add("hidden");
+
+
+$("#micBtn")
+.textContent =
+"Mic Off";
+
+
+$("#camBtn")
+.textContent =
 "Camera Off";
 
 };
 
 
-$("#goLiveButton").onclick = ()=>{
+/* LIVE CHAT MODERATION */
 
-if(!account.signedIn){
+function sendChat(){
+
+if(
+!account.signedIn
+){
 
 openSignin();
 
@@ -2358,145 +4913,184 @@ return;
 
 }
 
-live = true;
 
-$("#goLiveButton")
-.classList.add("hidden");
+if(
+!canPost()
+){
 
-$("#endLiveButton")
-.classList.remove("hidden");
+return;
 
-$("#livePreview")
-.textContent =
-"LIVE";
+}
 
-};
-
-
-$("#endLiveButton").onclick = ()=>{
-
-live = false;
-
-$("#goLiveButton")
-.classList.remove("hidden");
-
-$("#endLiveButton")
-.classList.add("hidden");
-
-$("#livePreview")
-.textContent =
-"Preview";
-
-};
-
-
-/* CHAT MODERATION */
-
-const mildWords = [
-
-"stupid",
-"dumb",
-"idiot",
-"loser"
-
-];
-
-const strongWords = [
-
-"fuck",
-"fucking",
-"shit",
-"bitch"
-
-];
-
-let warnings = 0;
-
-
-function sendChat(){
 
 const input =
 $("#chatInput");
+
 
 const text =
 input.value
 .trim();
 
+
 if(!text){
+
 return;
+
 }
 
-const lower =
-text.toLowerCase();
 
-const mild =
-mildWords.some(
-word=>lower.includes(word)
-);
-
-const strong =
-strongWords.some(
-word=>lower.includes(word)
+const result =
+moderateText(
+text
 );
 
 
-if(strong){
+/* NORMAL MESSAGE */
 
-$("#chatMessages")
+if(
+result.level === "ok"
+){
+
+$("#chatLog")
 .insertAdjacentHTML(
 "beforeend",
 `
-<div class="chat-message chat-ban">
-Message blocked. Strong language can result in a temporary account restriction.
+
+<div class="msg">
+
+<b>
+${esc(account.name)}
+</b>
+
+:
+${esc(text)}
+
 </div>
+
 `
 );
 
-input.value = "";
 
-return;
+input.value =
+"";
 
 }
 
 
-if(mild){
+/* MILD WARNING */
 
-warnings++;
+else if(
+result.level === "mild"
+){
 
-$("#chatMessages")
+addSafetyStrike(
+"mild"
+);
+
+
+$("#chatLog")
 .insertAdjacentHTML(
 "beforeend",
 `
-<div class="chat-message chat-warning">
+
+<div class="msg warn">
+
+<b>
+${esc(account.name)}
+</b>
+
+:
+${esc(text)}
+
+</div>
+
+<div class="msg warn">
+
 Warning: keep the chat friendly.
+
+Mild insults are warning-level.
+
 </div>
+
 `
 );
 
-input.value = "";
 
-return;
+input.value =
+"";
 
 }
 
 
-$("#chatMessages")
+/* STRONG SWEAR */
+
+else if(
+result.level === "strong"
+){
+
+addSafetyStrike(
+"strong"
+);
+
+
+$("#chatLog")
 .insertAdjacentHTML(
 "beforeend",
 `
-<div class="chat-message">
-<strong>${escapeHTML(account.name)}</strong>
-<br>
-${escapeHTML(text)}
+
+<div class="msg block">
+
+Message blocked.
+
+Strong profanity caused a 1-day restriction.
+
 </div>
+
 `
 );
 
-input.value = "";
 
-$("#chatMessages")
+input.value =
+"";
+
+}
+
+
+/* SEVERE */
+
+else{
+
+addSafetyStrike(
+"severe"
+);
+
+
+$("#chatLog")
+.insertAdjacentHTML(
+"beforeend",
+`
+
+<div class="msg block">
+
+Message blocked.
+
+Severe abusive or threatening language caused a long restriction.
+
+</div>
+
+`
+);
+
+
+input.value =
+"";
+
+}
+
+
+$("#chatLog")
 .scrollTop =
-$("#chatMessages")
+$("#chatLog")
 .scrollHeight;
 
 }
@@ -2510,9 +5104,11 @@ sendChat;
 $("#chatInput")
 .addEventListener(
 "keydown",
-event=>{
+event => {
 
-if(event.key === "Enter"){
+if(
+event.key === "Enter"
+){
 
 sendChat();
 
@@ -2520,6 +5116,8 @@ sendChat();
 
 });
 
+
+/* START */
 
 render();
 
