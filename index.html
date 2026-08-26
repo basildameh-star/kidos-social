@@ -1,1 +1,2529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KIDOS SOCIAL</title>
 
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+:root{
+    --bg:#0f0f0f;
+    --panel:#181818;
+    --panel2:#212121;
+    --panel3:#272727;
+    --line:#303030;
+    --text:#f1f1f1;
+    --muted:#aaaaaa;
+    --accent:#ff0033;
+    --blue:#3ea6ff;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:var(--bg);
+    color:var(--text);
+}
+
+button,
+input,
+textarea{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+.hidden{
+    display:none !important;
+}
+
+/* TOP BAR */
+
+.topbar{
+    height:56px;
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    background:#0f0f0f;
+    display:grid;
+    grid-template-columns:230px minmax(300px,700px) 1fr;
+    align-items:center;
+    padding:0 16px;
+    z-index:1000;
+}
+
+.top-left{
+    display:flex;
+    align-items:center;
+    gap:16px;
+}
+
+.menu-button{
+    border:0;
+    background:transparent;
+    color:white;
+    font-size:22px;
+    width:40px;
+    height:40px;
+    border-radius:50%;
+}
+
+.menu-button:hover{
+    background:#272727;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:20px;
+    font-weight:700;
+}
+
+.logo-box{
+    width:31px;
+    height:22px;
+    border-radius:6px;
+    background:var(--accent);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:12px;
+}
+
+.search-area{
+    display:flex;
+    justify-content:center;
+}
+
+.search-area input{
+    width:100%;
+    height:40px;
+    border:1px solid #303030;
+    background:#121212;
+    color:white;
+    border-radius:22px 0 0 22px;
+    padding:0 17px;
+    outline:none;
+}
+
+.search-area input:focus{
+    border-color:#1c62b9;
+}
+
+.search-area button{
+    width:65px;
+    background:#222;
+    color:white;
+    border:1px solid #303030;
+    border-left:0;
+    border-radius:0 22px 22px 0;
+}
+
+.top-right{
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+    gap:10px;
+}
+
+.create-button{
+    background:#272727;
+    border:0;
+    color:white;
+    padding:10px 16px;
+    border-radius:20px;
+    font-weight:600;
+}
+
+.signin-button{
+    border:1px solid #3ea6ff;
+    background:transparent;
+    color:#3ea6ff;
+    padding:9px 15px;
+    border-radius:20px;
+    font-weight:600;
+}
+
+.profile-button{
+    width:34px;
+    height:34px;
+    border-radius:50%;
+    border:0;
+    background:#325db8;
+    color:white;
+    font-weight:bold;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    position:fixed;
+    top:56px;
+    bottom:0;
+    left:0;
+    width:230px;
+    background:#0f0f0f;
+    overflow-y:auto;
+    padding:12px;
+    z-index:900;
+}
+
+.sidebar-button{
+    width:100%;
+    height:42px;
+    border:0;
+    border-radius:10px;
+    background:transparent;
+    color:white;
+    display:flex;
+    align-items:center;
+    gap:20px;
+    padding:0 14px;
+    text-align:left;
+}
+
+.sidebar-button:hover,
+.sidebar-button.active{
+    background:#272727;
+}
+
+.sidebar-icon{
+    width:22px;
+    font-size:18px;
+    text-align:center;
+}
+
+.sidebar-line{
+    height:1px;
+    background:#303030;
+    margin:12px 0;
+}
+
+.sidebar-title{
+    padding:8px 14px;
+    font-weight:bold;
+    font-size:15px;
+}
+
+/* MAIN */
+
+.main{
+    margin-left:230px;
+    padding:76px 25px 50px;
+}
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+/* CATEGORY CHIPS */
+
+.chips{
+    display:flex;
+    gap:10px;
+    overflow-x:auto;
+    padding-bottom:20px;
+}
+
+.chip{
+    border:0;
+    background:#272727;
+    color:white;
+    border-radius:8px;
+    padding:8px 13px;
+    white-space:nowrap;
+    font-weight:600;
+}
+
+.chip.active{
+    background:white;
+    color:black;
+}
+
+/* VIDEO GRID */
+
+.video-grid{
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:28px 16px;
+}
+
+.video-card{
+    cursor:pointer;
+}
+
+.thumbnail{
+    width:100%;
+    aspect-ratio:16/9;
+    background:#252525;
+    border-radius:12px;
+    overflow:hidden;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.thumbnail-design{
+    width:100%;
+    height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+    font-weight:bold;
+    background:
+        linear-gradient(135deg,#192c50,#111111);
+}
+
+.thumbnail-design.red{
+    background:linear-gradient(135deg,#4b111b,#151515);
+}
+
+.thumbnail-design.purple{
+    background:linear-gradient(135deg,#34205c,#101010);
+}
+
+.thumbnail-design.green{
+    background:linear-gradient(135deg,#144c36,#101010);
+}
+
+.duration{
+    position:absolute;
+    right:6px;
+    bottom:6px;
+    background:rgba(0,0,0,.8);
+    color:white;
+    padding:3px 5px;
+    border-radius:4px;
+    font-size:12px;
+}
+
+.live-label{
+    position:absolute;
+    bottom:6px;
+    left:6px;
+    background:#d50928;
+    padding:4px 7px;
+    border-radius:4px;
+    font-size:11px;
+    font-weight:bold;
+}
+
+.video-info{
+    display:grid;
+    grid-template-columns:38px 1fr;
+    gap:10px;
+    margin-top:10px;
+}
+
+.channel-avatar{
+    width:36px;
+    height:36px;
+    border-radius:50%;
+    background:#3157aa;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+}
+
+.video-title{
+    font-weight:600;
+    line-height:1.35;
+    margin-bottom:5px;
+}
+
+.video-sub{
+    color:#aaa;
+    font-size:14px;
+    line-height:1.4;
+}
+
+/* SHORTS */
+
+.section-title{
+    font-size:22px;
+    font-weight:bold;
+    margin:35px 0 18px;
+}
+
+.shorts-grid{
+    display:grid;
+    grid-template-columns:repeat(6,minmax(0,1fr));
+    gap:14px;
+}
+
+.short-thumb{
+    aspect-ratio:9/16;
+    border-radius:12px;
+    background:linear-gradient(180deg,#223b72,#111);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+    padding:20px;
+    text-align:center;
+}
+
+/* CHANNEL */
+
+.channel-header{
+    display:flex;
+    align-items:center;
+    gap:22px;
+    margin-bottom:25px;
+}
+
+.channel-big-avatar{
+    width:110px;
+    height:110px;
+    border-radius:50%;
+    background:#3157aa;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:42px;
+    font-weight:bold;
+}
+
+.channel-name{
+    font-size:28px;
+    font-weight:bold;
+}
+
+.channel-stats{
+    color:#aaa;
+    margin-top:7px;
+}
+
+.channel-description{
+    color:#ccc;
+    margin-top:10px;
+}
+
+.channel-tabs{
+    display:flex;
+    gap:30px;
+    border-bottom:1px solid #333;
+    margin-bottom:25px;
+}
+
+.channel-tab{
+    padding:12px 0;
+    color:#aaa;
+    font-weight:bold;
+}
+
+.channel-tab.active{
+    color:white;
+    border-bottom:2px solid white;
+}
+
+/* FORMS */
+
+.panel{
+    max-width:900px;
+    background:#181818;
+    border:1px solid #303030;
+    border-radius:15px;
+    padding:22px;
+}
+
+.field{
+    margin-bottom:18px;
+}
+
+.field label{
+    display:block;
+    color:#bbb;
+    font-size:13px;
+    margin-bottom:7px;
+}
+
+.field input,
+.field textarea,
+.field select{
+    width:100%;
+    background:#111;
+    color:white;
+    border:1px solid #3a3a3a;
+    border-radius:10px;
+    padding:12px;
+}
+
+.field textarea{
+    min-height:110px;
+    resize:vertical;
+}
+
+.primary{
+    background:#3ea6ff;
+    color:#07131d;
+    border:0;
+    border-radius:20px;
+    padding:10px 17px;
+    font-weight:bold;
+}
+
+.secondary{
+    background:#272727;
+    color:white;
+    border:0;
+    border-radius:20px;
+    padding:10px 17px;
+    font-weight:bold;
+}
+
+.danger{
+    background:#c91635;
+    color:white;
+    border:0;
+    border-radius:20px;
+    padding:10px 17px;
+    font-weight:bold;
+}
+
+/* UPLOAD */
+
+.upload-zone{
+    border:2px dashed #444;
+    border-radius:15px;
+    padding:45px;
+    text-align:center;
+}
+
+.upload-symbol{
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    background:#272727;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:0 auto 18px;
+    font-size:30px;
+}
+
+/* POSTS */
+
+.post{
+    background:#181818;
+    border:1px solid #303030;
+    border-radius:14px;
+    padding:17px;
+    margin-bottom:14px;
+}
+
+.post-header{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:12px;
+}
+
+/* SIGN IN AND PARENT GATE */
+
+.overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.82);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:3000;
+}
+
+.modal{
+    width:min(470px,92%);
+    background:white;
+    color:#202124;
+    border-radius:18px;
+    padding:30px;
+}
+
+.modal-logo{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:21px;
+    font-weight:bold;
+    margin-bottom:26px;
+}
+
+.modal h1{
+    font-size:25px;
+    margin-bottom:12px;
+}
+
+.modal p{
+    color:#5f6368;
+    line-height:1.55;
+    margin-bottom:20px;
+}
+
+.modal-button{
+    width:100%;
+    padding:12px;
+    border-radius:22px;
+    font-weight:bold;
+    margin-top:9px;
+}
+
+.modal-button.primary-modal{
+    background:#1a73e8;
+    color:white;
+    border:0;
+}
+
+.modal-button.light{
+    background:white;
+    color:#1a73e8;
+    border:1px solid #dadce0;
+}
+
+.parent-notice{
+    background:#f5f7fb;
+    border-radius:12px;
+    padding:14px;
+    margin:18px 0;
+    color:#444;
+    line-height:1.45;
+}
+
+.account-form{
+    margin-top:20px;
+}
+
+.account-form input{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:9px;
+    margin-bottom:10px;
+}
+
+/* LIVE */
+
+.live-layout{
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:18px;
+}
+
+.live-preview{
+    width:100%;
+    aspect-ratio:16/9;
+    border-radius:12px;
+    background:black;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#777;
+}
+
+.live-controls{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:14px;
+}
+
+.chat-box{
+    background:#181818;
+    border:1px solid #333;
+    border-radius:12px;
+    overflow:hidden;
+    height:510px;
+    display:flex;
+    flex-direction:column;
+}
+
+.chat-title{
+    padding:14px;
+    border-bottom:1px solid #333;
+    font-weight:bold;
+}
+
+.chat-messages{
+    flex:1;
+    padding:12px;
+    overflow-y:auto;
+}
+
+.chat-message{
+    padding:9px;
+    margin-bottom:7px;
+    background:#242424;
+    border-radius:8px;
+}
+
+.chat-warning{
+    background:#453912;
+}
+
+.chat-ban{
+    background:#45151d;
+}
+
+.chat-input{
+    display:flex;
+    gap:8px;
+    padding:10px;
+    border-top:1px solid #333;
+}
+
+.chat-input input{
+    flex:1;
+    background:#111;
+    border:1px solid #444;
+    color:white;
+    padding:10px;
+    border-radius:18px;
+}
+
+/* CREATE MODAL */
+
+.dark-modal{
+    background:#212121;
+    color:white;
+    width:400px;
+}
+
+.create-option{
+    width:100%;
+    background:transparent;
+    color:white;
+    border:0;
+    padding:14px;
+    text-align:left;
+    border-radius:8px;
+}
+
+.create-option:hover{
+    background:#303030;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1200px){
+    .video-grid{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+    .shorts-grid{
+        grid-template-columns:repeat(4,1fr);
+    }
+}
+
+@media(max-width:900px){
+    .sidebar{
+        width:75px;
+    }
+
+    .sidebar-text,
+    .sidebar-title,
+    .sidebar-line{
+        display:none;
+    }
+
+    .main{
+        margin-left:75px;
+    }
+
+    .topbar{
+        grid-template-columns:180px 1fr auto;
+    }
+
+    .video-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .live-layout{
+        grid-template-columns:1fr;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<header class="topbar">
+
+<div class="top-left">
+    <button class="menu-button" id="menuButton">☰</button>
+
+    <div class="logo">
+        <div class="logo-box">▶</div>
+        KIDOS SOCIAL
+    </div>
+</div>
+
+<div class="search-area">
+    <input id="searchInput" placeholder="Search">
+    <button id="searchButton">Search</button>
+</div>
+
+<div class="top-right">
+    <button class="create-button" id="createButton">Create</button>
+
+    <button class="signin-button" id="signinButton">
+        Sign in
+    </button>
+
+    <button class="profile-button hidden" id="profileButton">
+        K
+    </button>
+</div>
+
+</header>
+
+<aside class="sidebar" id="sidebar">
+
+<button class="sidebar-button active" data-page="home">
+    <span class="sidebar-icon">H</span>
+    <span class="sidebar-text">Home</span>
+</button>
+
+<button class="sidebar-button" data-page="shorts">
+    <span class="sidebar-icon">S</span>
+    <span class="sidebar-text">Shorts</span>
+</button>
+
+<button class="sidebar-button" data-page="subscriptions">
+    <span class="sidebar-icon">SUB</span>
+    <span class="sidebar-text">Subscriptions</span>
+</button>
+
+<div class="sidebar-line"></div>
+
+<div class="sidebar-title">You</div>
+
+<button class="sidebar-button" data-page="channel">
+    <span class="sidebar-icon">C</span>
+    <span class="sidebar-text">Your channel</span>
+</button>
+
+<button class="sidebar-button" data-page="history">
+    <span class="sidebar-icon">HIS</span>
+    <span class="sidebar-text">History</span>
+</button>
+
+<div class="sidebar-line"></div>
+
+<div class="sidebar-title">Create</div>
+
+<button class="sidebar-button" data-page="upload">
+    <span class="sidebar-icon">UP</span>
+    <span class="sidebar-text">Upload video</span>
+</button>
+
+<button class="sidebar-button" data-page="uploadshort">
+    <span class="sidebar-icon">SH</span>
+    <span class="sidebar-text">Upload Short</span>
+</button>
+
+<button class="sidebar-button" data-page="live">
+    <span class="sidebar-icon">LIVE</span>
+    <span class="sidebar-text">Go live</span>
+</button>
+
+<button class="sidebar-button" data-page="posts">
+    <span class="sidebar-icon">P</span>
+    <span class="sidebar-text">Posts</span>
+</button>
+
+</aside>
+
+<main class="main">
+
+<!-- HOME -->
+
+<section class="page active" id="page-home">
+
+<div class="chips">
+    <button class="chip active">All</button>
+    <button class="chip">Gaming</button>
+    <button class="chip">Roblox</button>
+    <button class="chip">Live</button>
+    <button class="chip">Building</button>
+    <button class="chip">Coding</button>
+    <button class="chip">Challenges</button>
+</div>
+
+<div class="video-grid" id="homeVideos"></div>
+
+<div class="section-title">Shorts</div>
+
+<div class="shorts-grid" id="homeShorts"></div>
+
+</section>
+
+
+<!-- SHORTS -->
+
+<section class="page" id="page-shorts">
+
+<div class="section-title">Shorts</div>
+
+<div class="shorts-grid" id="shortsVideos"></div>
+
+</section>
+
+
+<!-- SUBSCRIPTIONS -->
+
+<section class="page" id="page-subscriptions">
+
+<div class="section-title">Latest from subscriptions</div>
+
+<div class="video-grid" id="subscriptionVideos"></div>
+
+</section>
+
+
+<!-- CHANNEL -->
+
+<section class="page" id="page-channel">
+
+<div class="channel-header">
+
+<div class="channel-big-avatar" id="channelAvatar">K</div>
+
+<div>
+
+<div class="channel-name" id="channelName">
+KidosPlayer
+</div>
+
+<div class="channel-stats" id="channelStats">
+@KidosPlayer · 0 subscribers · 0 videos
+</div>
+
+<div class="channel-description">
+Gaming, creative videos, safe livestreams and community posts.
+</div>
+
+</div>
+
+</div>
+
+<div class="channel-tabs">
+
+<div class="channel-tab active">Home</div>
+<div class="channel-tab">Videos</div>
+<div class="channel-tab">Shorts</div>
+<div class="channel-tab">Live</div>
+<div class="channel-tab">Posts</div>
+
+</div>
+
+<div class="section-title">Videos</div>
+
+<div class="video-grid" id="channelVideos"></div>
+
+<div class="section-title">Posts</div>
+
+<div id="channelPosts"></div>
+
+</section>
+
+
+<!-- UPLOAD -->
+
+<section class="page" id="page-upload">
+
+<div class="section-title">Upload video</div>
+
+<div class="panel">
+
+<div class="upload-zone">
+
+<div class="upload-symbol">UP</div>
+
+<h2>Select your video</h2>
+
+<p style="color:#aaa;margin-top:10px;">
+Choose a video stored on this computer.
+</p>
+
+<input
+type="file"
+id="videoFile"
+accept="video/*"
+style="margin-top:20px;"
+>
+
+</div>
+
+<div class="field" style="margin-top:22px;">
+<label>Title</label>
+<input id="videoTitle" placeholder="Add a title">
+</div>
+
+<div class="field">
+<label>Description</label>
+<textarea id="videoDescription" placeholder="Tell viewers about your video"></textarea>
+</div>
+
+<div class="field">
+<label>Visibility</label>
+
+<select id="videoVisibility">
+<option>Public</option>
+<option>Unlisted</option>
+<option>Private</option>
+</select>
+
+</div>
+
+<button class="primary" id="publishVideoButton">
+Publish
+</button>
+
+</div>
+
+</section>
+
+
+<!-- SHORT UPLOAD -->
+
+<section class="page" id="page-uploadshort">
+
+<div class="section-title">Upload Short</div>
+
+<div class="panel">
+
+<div class="upload-zone">
+
+<div class="upload-symbol">SH</div>
+
+<h2>Select a Short</h2>
+
+<p style="color:#aaa;margin-top:10px;">
+Vertical videos work best.
+</p>
+
+<input
+type="file"
+id="shortFile"
+accept="video/*"
+style="margin-top:20px;"
+>
+
+</div>
+
+<div class="field" style="margin-top:22px;">
+<label>Title</label>
+<input id="shortTitle" placeholder="Short title">
+</div>
+
+<button class="primary" id="publishShortButton">
+Publish Short
+</button>
+
+</div>
+
+</section>
+
+
+<!-- LIVE -->
+
+<section class="page" id="page-live">
+
+<div class="section-title">Live Control Room</div>
+
+<div class="live-layout">
+
+<div>
+
+<div class="panel">
+
+<div class="field">
+<label>Stream title</label>
+
+<input
+id="liveTitle"
+value="Playing Roblox Live"
+>
+</div>
+
+<div class="field">
+
+<label>Who can watch?</label>
+
+<select>
+<option>Approved friends</option>
+<option>Followers</option>
+<option>Private test</option>
+</select>
+
+</div>
+
+<div class="live-preview" id="livePreview">
+Preview
+</div>
+
+<div class="live-controls">
+
+<button class="secondary">
+Share game or screen
+</button>
+
+<button class="secondary" id="micButton">
+Mic Off
+</button>
+
+<button class="secondary" id="cameraButton">
+Camera Off
+</button>
+
+<button class="primary" id="goLiveButton">
+Go Live
+</button>
+
+<button class="danger hidden" id="endLiveButton">
+End Stream
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="chat-box">
+
+<div class="chat-title">
+Live chat
+</div>
+
+<div class="chat-messages" id="chatMessages">
+
+<div class="chat-message">
+Welcome to live chat.
+</div>
+
+</div>
+
+<div class="chat-input">
+
+<input
+id="chatInput"
+placeholder="Chat..."
+>
+
+<button class="primary" id="chatSend">
+Send
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- POSTS -->
+
+<section class="page" id="page-posts">
+
+<div class="section-title">Posts</div>
+
+<div class="panel">
+
+<div class="field">
+
+<label>Create a post</label>
+
+<textarea
+id="postInput"
+placeholder="Share something with your community"
+></textarea>
+
+</div>
+
+<button class="primary" id="postButton">
+Post
+</button>
+
+</div>
+
+<div style="height:20px;"></div>
+
+<div id="postsList"></div>
+
+</section>
+
+
+<!-- HISTORY -->
+
+<section class="page" id="page-history">
+
+<div class="section-title">Watch history</div>
+
+<div class="video-grid" id="historyVideos"></div>
+
+</section>
+
+</main>
+
+
+<!-- SIGN IN MODAL -->
+
+<div class="overlay hidden" id="signinOverlay">
+
+<div class="modal">
+
+<div class="modal-logo">
+
+<div class="logo-box">▶</div>
+
+KIDOS SOCIAL
+
+</div>
+
+<h1>Welcome to KIDOS SOCIAL</h1>
+
+<p>
+You can watch videos without an account.
+</p>
+
+<div class="parent-notice">
+
+<strong>Want your own account?</strong>
+
+<br><br>
+
+Ask your parent or guardian to help you create and manage your KIDOS SOCIAL account.
+
+</div>
+
+<button
+class="modal-button primary-modal"
+id="parentHelpButton"
+>
+My parent is helping me
+</button>
+
+<button
+class="modal-button light"
+id="continueWithoutAccount"
+>
+Continue without an account
+</button>
+
+<button
+class="modal-button light"
+id="closeSignin"
+>
+Cancel
+</button>
+
+</div>
+
+</div>
+
+
+<!-- CREATE ACCOUNT -->
+
+<div class="overlay hidden" id="accountOverlay">
+
+<div class="modal">
+
+<div class="modal-logo">
+
+<div class="logo-box">▶</div>
+
+KIDOS SOCIAL
+
+</div>
+
+<h1>Create your account</h1>
+
+<p>
+A parent or guardian should help with this step.
+</p>
+
+<div class="parent-notice">
+
+Do not enter your school name, home address, phone number or other private information into your public username.
+
+</div>
+
+<div class="account-form">
+
+<input
+id="accountName"
+placeholder="Channel name"
+maxlength="25"
+>
+
+<input
+id="accountHandle"
+placeholder="Handle, for example @KidosPlayer"
+maxlength="25"
+>
+
+</div>
+
+<button
+class="modal-button primary-modal"
+id="createAccountButton"
+>
+Create account
+</button>
+
+<button
+class="modal-button light"
+id="cancelAccountButton"
+>
+Cancel
+</button>
+
+</div>
+
+</div>
+
+
+<!-- CREATE MENU -->
+
+<div class="overlay hidden" id="createOverlay">
+
+<div class="modal dark-modal">
+
+<h2 style="margin-bottom:15px;">Create</h2>
+
+<button class="create-option" data-create-page="upload">
+Upload video
+</button>
+
+<button class="create-option" data-create-page="uploadshort">
+Upload Short
+</button>
+
+<button class="create-option" data-create-page="live">
+Go live
+</button>
+
+<button class="create-option" data-create-page="posts">
+Create post
+</button>
+
+<button class="create-option" id="closeCreate">
+Cancel
+</button>
+
+</div>
+
+</div>
+
+
+<script>
+
+const $ = selector => document.querySelector(selector);
+const $$ = selector => [...document.querySelectorAll(selector)];
+
+
+/* DATA */
+
+let account = JSON.parse(
+    localStorage.getItem("kidosAccount")
+    ||
+    JSON.stringify({
+        signedIn:false,
+        name:"KidosPlayer",
+        handle:"@KidosPlayer"
+    })
+);
+
+let uploadedVideos =
+JSON.parse(localStorage.getItem("kidosVideos") || "[]");
+
+let uploadedShorts =
+JSON.parse(localStorage.getItem("kidosShorts") || "[]");
+
+let posts =
+JSON.parse(localStorage.getItem("kidosPosts") || "[]");
+
+let history =
+JSON.parse(localStorage.getItem("kidosHistory") || "[]");
+
+
+const demoVideos = [
+
+{
+id:"video1",
+title:"Roblox Rivals Challenge",
+channel:"Kidos Gaming",
+views:"24K views",
+time:"3 hours ago",
+duration:"8:42",
+style:""
+},
+
+{
+id:"video2",
+title:"Building the Fastest Car",
+channel:"SpeedBuild",
+views:"63K views",
+time:"1 day ago",
+duration:"10:21",
+style:"red"
+},
+
+{
+id:"video3",
+title:"Ranked Matches Live",
+channel:"NovaPlay",
+views:"418 watching",
+time:"Live",
+live:true,
+style:"purple"
+},
+
+{
+id:"video4",
+title:"Making a New Game",
+channel:"GameBuilder",
+views:"18K views",
+time:"5 hours ago",
+duration:"12:05",
+style:"green"
+},
+
+{
+id:"video5",
+title:"Can I Win With the Worst Loadout?",
+channel:"Kidos Gaming",
+views:"41K views",
+time:"2 days ago",
+duration:"9:11",
+style:""
+},
+
+{
+id:"video6",
+title:"How I Built This Map",
+channel:"BuilderZone",
+views:"31K views",
+time:"4 days ago",
+duration:"7:58",
+style:"green"
+},
+
+{
+id:"video7",
+title:"Best Gaming Moments",
+channel:"ClipCenter",
+views:"102K views",
+time:"6 days ago",
+duration:"6:24",
+style:"purple"
+},
+
+{
+id:"video8",
+title:"Secret Base Build",
+channel:"WorldCreator",
+views:"29K views",
+time:"1 week ago",
+duration:"11:46",
+style:"red"
+}
+
+];
+
+
+const demoShorts = [
+
+{
+title:"One HP comeback",
+views:"1.2M views"
+},
+
+{
+title:"Fastest build",
+views:"820K views"
+},
+
+{
+title:"Impossible shot",
+views:"570K views"
+},
+
+{
+title:"Clean win",
+views:"440K views"
+},
+
+{
+title:"New map idea",
+views:"211K views"
+},
+
+{
+title:"Perfect timing",
+views:"764K views"
+}
+
+];
+
+
+/* HELPERS */
+
+function save(){
+
+localStorage.setItem(
+"kidosAccount",
+JSON.stringify(account)
+);
+
+localStorage.setItem(
+"kidosVideos",
+JSON.stringify(uploadedVideos)
+);
+
+localStorage.setItem(
+"kidosShorts",
+JSON.stringify(uploadedShorts)
+);
+
+localStorage.setItem(
+"kidosPosts",
+JSON.stringify(posts)
+);
+
+localStorage.setItem(
+"kidosHistory",
+JSON.stringify(history)
+);
+
+}
+
+
+function escapeHTML(text){
+
+return String(text || "")
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
+
+}
+
+
+/* NAVIGATION */
+
+function showPage(name){
+
+$$(".page").forEach(page=>{
+page.classList.remove("active");
+});
+
+const page =
+$("#page-" + name);
+
+if(page){
+page.classList.add("active");
+}
+
+$$(".sidebar-button").forEach(button=>{
+
+button.classList.toggle(
+"active",
+button.dataset.page === name
+);
+
+});
+
+window.scrollTo(0,0);
+
+}
+
+
+$$(".sidebar-button").forEach(button=>{
+
+button.addEventListener("click",()=>{
+
+const target =
+button.dataset.page;
+
+if(
+["upload","uploadshort","live","posts","channel"]
+.includes(target)
+&&
+!account.signedIn
+){
+
+openSignin();
+return;
+
+}
+
+showPage(target);
+
+});
+
+});
+
+
+/* SIDEBAR */
+
+$("#menuButton").onclick = ()=>{
+
+$("#sidebar").classList.toggle("hidden");
+
+};
+
+
+/* SIGN IN */
+
+function openSignin(){
+
+$("#signinOverlay")
+.classList.remove("hidden");
+
+}
+
+
+$("#signinButton").onclick = openSignin;
+
+
+$("#closeSignin").onclick = ()=>{
+
+$("#signinOverlay")
+.classList.add("hidden");
+
+};
+
+
+$("#continueWithoutAccount").onclick = ()=>{
+
+$("#signinOverlay")
+.classList.add("hidden");
+
+showPage("home");
+
+};
+
+
+$("#parentHelpButton").onclick = ()=>{
+
+$("#signinOverlay")
+.classList.add("hidden");
+
+$("#accountOverlay")
+.classList.remove("hidden");
+
+};
+
+
+$("#cancelAccountButton").onclick = ()=>{
+
+$("#accountOverlay")
+.classList.add("hidden");
+
+};
+
+
+$("#createAccountButton").onclick = ()=>{
+
+let name =
+$("#accountName")
+.value
+.trim();
+
+let handle =
+$("#accountHandle")
+.value
+.trim();
+
+if(!name){
+
+alert("Choose a channel name.");
+
+return;
+
+}
+
+if(!handle){
+
+handle =
+"@" +
+name.replace(/\s+/g,"");
+
+}
+
+if(!handle.startsWith("@")){
+
+handle = "@" + handle;
+
+}
+
+account = {
+
+signedIn:true,
+name:name,
+handle:handle
+
+};
+
+save();
+
+$("#accountOverlay")
+.classList.add("hidden");
+
+render();
+
+showPage("channel");
+
+};
+
+
+/* PROFILE */
+
+$("#profileButton").onclick = ()=>{
+
+showPage("channel");
+
+};
+
+
+/* CREATE MENU */
+
+$("#createButton").onclick = ()=>{
+
+if(!account.signedIn){
+
+openSignin();
+
+return;
+
+}
+
+$("#createOverlay")
+.classList.remove("hidden");
+
+};
+
+
+$("#closeCreate").onclick = ()=>{
+
+$("#createOverlay")
+.classList.add("hidden");
+
+};
+
+
+$$("[data-create-page]").forEach(button=>{
+
+button.onclick = ()=>{
+
+$("#createOverlay")
+.classList.add("hidden");
+
+showPage(
+button.dataset.createPage
+);
+
+};
+
+});
+
+
+/* VIDEO CARDS */
+
+function createVideoCard(video){
+
+let duration = "";
+
+if(video.live){
+
+duration =
+'<div class="live-label">LIVE</div>';
+
+}else{
+
+duration =
+`<div class="duration">${video.duration || "NEW"}</div>`;
+
+}
+
+return `
+
+<div
+class="video-card"
+data-video-id="${video.id}"
+>
+
+<div class="thumbnail">
+
+<div class="thumbnail-design ${video.style || ""}">
+${escapeHTML(video.title)}
+</div>
+
+${duration}
+
+</div>
+
+<div class="video-info">
+
+<div class="channel-avatar">
+${escapeHTML(
+(video.channel || "K")[0]
+)}
+</div>
+
+<div>
+
+<div class="video-title">
+${escapeHTML(video.title)}
+</div>
+
+<div class="video-sub">
+${escapeHTML(video.channel)}
+</div>
+
+<div class="video-sub">
+${escapeHTML(video.views || "0 views")}
+ ·
+${escapeHTML(video.time || "Just now")}
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+/* SHORT CARD */
+
+function createShort(short){
+
+return `
+
+<div>
+
+<div class="short-thumb">
+${escapeHTML(short.title)}
+</div>
+
+<div class="video-title" style="margin-top:8px;">
+${escapeHTML(short.title)}
+</div>
+
+<div class="video-sub">
+${escapeHTML(short.views || "0 views")}
+</div>
+
+</div>
+
+`;
+
+}
+
+
+/* POST */
+
+function createPost(post){
+
+return `
+
+<div class="post">
+
+<div class="post-header">
+
+<div class="channel-avatar">
+${escapeHTML(account.name[0])}
+</div>
+
+<div>
+
+<strong>
+${escapeHTML(account.name)}
+</strong>
+
+<div class="video-sub">
+Just now
+</div>
+
+</div>
+
+</div>
+
+<div>
+${escapeHTML(post.text)}
+</div>
+
+<div style="margin-top:15px;">
+
+<button class="secondary">
+Like
+</button>
+
+<button class="secondary">
+Comment
+</button>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+/* RENDER */
+
+function render(){
+
+const combinedVideos = [
+
+...uploadedVideos,
+
+...demoVideos
+
+];
+
+
+$("#homeVideos").innerHTML =
+combinedVideos
+.slice(0,8)
+.map(createVideoCard)
+.join("");
+
+
+$("#subscriptionVideos").innerHTML =
+demoVideos
+.slice(1,7)
+.map(createVideoCard)
+.join("");
+
+
+$("#homeShorts").innerHTML =
+[
+...uploadedShorts,
+...demoShorts
+]
+.slice(0,6)
+.map(createShort)
+.join("");
+
+
+$("#shortsVideos").innerHTML =
+[
+...uploadedShorts,
+...demoShorts
+]
+.map(createShort)
+.join("");
+
+
+if(uploadedVideos.length){
+
+$("#channelVideos").innerHTML =
+uploadedVideos
+.map(createVideoCard)
+.join("");
+
+}else{
+
+$("#channelVideos").innerHTML =
+'<div class="video-sub">No videos uploaded yet.</div>';
+
+}
+
+
+if(posts.length){
+
+$("#channelPosts").innerHTML =
+posts
+.map(createPost)
+.join("");
+
+$("#postsList").innerHTML =
+posts
+.map(createPost)
+.join("");
+
+}else{
+
+$("#channelPosts").innerHTML =
+'<div class="video-sub">No posts yet.</div>';
+
+$("#postsList").innerHTML = "";
+
+}
+
+
+if(history.length){
+
+$("#historyVideos").innerHTML =
+history
+.map(createVideoCard)
+.join("");
+
+}else{
+
+$("#historyVideos").innerHTML =
+'<div class="video-sub">Your history is empty.</div>';
+
+}
+
+
+$("#channelName")
+.textContent =
+account.name;
+
+
+$("#channelAvatar")
+.textContent =
+account.name[0]
+.toUpperCase();
+
+
+$("#channelStats")
+.textContent =
+account.handle
++
+" · 0 subscribers · "
++
+uploadedVideos.length
++
+" videos";
+
+
+if(account.signedIn){
+
+$("#signinButton")
+.classList.add("hidden");
+
+$("#profileButton")
+.classList.remove("hidden");
+
+$("#profileButton")
+.textContent =
+account.name[0]
+.toUpperCase();
+
+}else{
+
+$("#signinButton")
+.classList.remove("hidden");
+
+$("#profileButton")
+.classList.add("hidden");
+
+}
+
+attachVideoClicks();
+
+}
+
+
+/* CLICK VIDEO */
+
+function attachVideoClicks(){
+
+$$("[data-video-id]")
+.forEach(card=>{
+
+card.onclick = ()=>{
+
+const id =
+card.dataset.videoId;
+
+const all =
+[
+...uploadedVideos,
+...demoVideos
+];
+
+const video =
+all.find(v=>v.id === id);
+
+if(!video){
+return;
+}
+
+history =
+history.filter(
+item=>item.id !== video.id
+);
+
+history.unshift(video);
+
+history =
+history.slice(0,30);
+
+save();
+
+render();
+
+alert(
+"Opening video: "
++
+video.title
+);
+
+};
+
+});
+
+}
+
+
+/* SEARCH */
+
+function search(){
+
+const text =
+$("#searchInput")
+.value
+.toLowerCase()
+.trim();
+
+if(!text){
+
+render();
+
+return;
+
+}
+
+const results = [
+
+...uploadedVideos,
+...demoVideos
+
+].filter(video=>
+
+(
+video.title
++
+" "
++
+video.channel
+)
+.toLowerCase()
+.includes(text)
+
+);
+
+showPage("home");
+
+$("#homeVideos").innerHTML =
+results.length
+?
+results.map(createVideoCard).join("")
+:
+'<div class="video-sub">No results found.</div>';
+
+attachVideoClicks();
+
+}
+
+
+$("#searchButton")
+.onclick =
+search;
+
+
+$("#searchInput")
+.addEventListener(
+"keydown",
+event=>{
+
+if(event.key === "Enter"){
+
+search();
+
+}
+
+});
+
+
+/* UPLOAD VIDEO */
+
+$("#publishVideoButton")
+.onclick = ()=>{
+
+if(!account.signedIn){
+
+openSignin();
+
+return;
+
+}
+
+const title =
+$("#videoTitle")
+.value
+.trim();
+
+if(!title){
+
+alert("Add a video title.");
+
+return;
+
+}
+
+const newVideo = {
+
+id:
+"upload-" + Date.now(),
+
+title:title,
+
+channel:account.name,
+
+views:"0 views",
+
+time:"Just now",
+
+duration:"NEW",
+
+style:""
+
+};
+
+uploadedVideos.unshift(
+newVideo
+);
+
+save();
+
+$("#videoTitle").value = "";
+
+$("#videoDescription").value = "";
+
+render();
+
+showPage("channel");
+
+};
+
+
+/* SHORT */
+
+$("#publishShortButton")
+.onclick = ()=>{
+
+if(!account.signedIn){
+
+openSignin();
+
+return;
+
+}
+
+const title =
+$("#shortTitle")
+.value
+.trim();
+
+if(!title){
+
+alert("Add a Short title.");
+
+return;
+
+}
+
+uploadedShorts.unshift({
+
+title:title,
+
+views:"0 views"
+
+});
+
+save();
+
+$("#shortTitle").value = "";
+
+render();
+
+showPage("shorts");
+
+};
+
+
+/* POSTS */
+
+$("#postButton")
+.onclick = ()=>{
+
+if(!account.signedIn){
+
+openSignin();
+
+return;
+
+}
+
+const text =
+$("#postInput")
+.value
+.trim();
+
+if(!text){
+return;
+}
+
+posts.unshift({
+
+text:text
+
+});
+
+save();
+
+$("#postInput").value = "";
+
+render();
+
+};
+
+
+/* LIVE */
+
+let micOn = false;
+let cameraOn = false;
+let live = false;
+
+
+$("#micButton").onclick = ()=>{
+
+micOn = !micOn;
+
+$("#micButton")
+.textContent =
+micOn
+?
+"Mic On"
+:
+"Mic Off";
+
+};
+
+
+$("#cameraButton").onclick = ()=>{
+
+cameraOn = !cameraOn;
+
+$("#cameraButton")
+.textContent =
+cameraOn
+?
+"Camera On"
+:
+"Camera Off";
+
+};
+
+
+$("#goLiveButton").onclick = ()=>{
+
+if(!account.signedIn){
+
+openSignin();
+
+return;
+
+}
+
+live = true;
+
+$("#goLiveButton")
+.classList.add("hidden");
+
+$("#endLiveButton")
+.classList.remove("hidden");
+
+$("#livePreview")
+.textContent =
+"LIVE";
+
+};
+
+
+$("#endLiveButton").onclick = ()=>{
+
+live = false;
+
+$("#goLiveButton")
+.classList.remove("hidden");
+
+$("#endLiveButton")
+.classList.add("hidden");
+
+$("#livePreview")
+.textContent =
+"Preview";
+
+};
+
+
+/* CHAT MODERATION */
+
+const mildWords = [
+
+"stupid",
+"dumb",
+"idiot",
+"loser"
+
+];
+
+const strongWords = [
+
+"fuck",
+"fucking",
+"shit",
+"bitch"
+
+];
+
+let warnings = 0;
+
+
+function sendChat(){
+
+const input =
+$("#chatInput");
+
+const text =
+input.value
+.trim();
+
+if(!text){
+return;
+}
+
+const lower =
+text.toLowerCase();
+
+const mild =
+mildWords.some(
+word=>lower.includes(word)
+);
+
+const strong =
+strongWords.some(
+word=>lower.includes(word)
+);
+
+
+if(strong){
+
+$("#chatMessages")
+.insertAdjacentHTML(
+"beforeend",
+`
+<div class="chat-message chat-ban">
+Message blocked. Strong language can result in a temporary account restriction.
+</div>
+`
+);
+
+input.value = "";
+
+return;
+
+}
+
+
+if(mild){
+
+warnings++;
+
+$("#chatMessages")
+.insertAdjacentHTML(
+"beforeend",
+`
+<div class="chat-message chat-warning">
+Warning: keep the chat friendly.
+</div>
+`
+);
+
+input.value = "";
+
+return;
+
+}
+
+
+$("#chatMessages")
+.insertAdjacentHTML(
+"beforeend",
+`
+<div class="chat-message">
+<strong>${escapeHTML(account.name)}</strong>
+<br>
+${escapeHTML(text)}
+</div>
+`
+);
+
+input.value = "";
+
+$("#chatMessages")
+.scrollTop =
+$("#chatMessages")
+.scrollHeight;
+
+}
+
+
+$("#chatSend")
+.onclick =
+sendChat;
+
+
+$("#chatInput")
+.addEventListener(
+"keydown",
+event=>{
+
+if(event.key === "Enter"){
+
+sendChat();
+
+}
+
+});
+
+
+render();
+
+</script>
+
+</body>
+</html>
